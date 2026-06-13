@@ -38,22 +38,25 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden md:block">
-          <Button asChild>
-            <a
-              href={whatsappLink("Hola AutoBroker MX, quiero más información.")}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Contáctanos
-            </a>
+          <Button
+            render={
+              <a
+                href={whatsappLink("Hola AutoBroker MX, quiero más información.")}
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
+          >
+            Contáctanos
           </Button>
         </div>
 
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon" aria-label="Abrir menú">
-              <Menu className="h-5 w-5" />
-            </Button>
+          <SheetTrigger
+            className="md:hidden"
+            render={<Button variant="ghost" size="icon" aria-label="Abrir menú" />}
+          >
+            <Menu className="h-5 w-5" />
           </SheetTrigger>
           <SheetContent side="right" className="w-72">
             <SheetTitle className="sr-only">Menú de navegación</SheetTitle>
@@ -76,14 +79,17 @@ export function SiteHeader() {
               ))}
             </nav>
             <div className="mt-6 px-1">
-              <Button asChild className="w-full">
-                <a
-                  href={whatsappLink("Hola AutoBroker MX, quiero más información.")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Contáctanos por WhatsApp
-                </a>
+              <Button
+                className="w-full"
+                render={
+                  <a
+                    href={whatsappLink("Hola AutoBroker MX, quiero más información.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                }
+              >
+                Contáctanos por WhatsApp
               </Button>
             </div>
           </SheetContent>
