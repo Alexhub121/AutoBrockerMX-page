@@ -1,6 +1,9 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
+import { WhatsAppFloat } from '@/components/whatsapp-float'
 import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -10,8 +13,13 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: {
+    default: 'AutoBroker MX | Intermediación automotriz profesional',
+    template: '%s | AutoBroker MX',
+  },
+  description:
+    'Vende tu auto de forma rápida, segura y sin complicaciones. Conectamos propietarios con compradores en toda la República Mexicana.',
+  keywords: ['venta de autos', 'broker de autos', 'vender mi auto', 'autos usados México', 'AutoBroker MX'],
   generator: 'v0.app',
   icons: {
     icon: [
@@ -46,9 +54,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="es" className={`light bg-background ${geistSans.variable} ${geistMono.variable}`}>
       <body className="font-sans antialiased">
-        {children}
+        <div className="flex min-h-dvh flex-col">
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </div>
+        <WhatsAppFloat />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
