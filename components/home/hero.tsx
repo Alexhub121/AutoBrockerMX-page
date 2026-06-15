@@ -20,20 +20,22 @@ export function Hero() {
             envías las fotos y los datos de tu vehículo.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg">
-              <Link href="/catalogo">
-                Ver catálogo
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+            <Button size="lg" render={<Link href="/catalogo" />}>
+              Ver catálogo
+              <ArrowRight className="h-4 w-4" />
             </Button>
-            <Button asChild size="lg" variant="outline">
-              <a
-                href={whatsappLink("Hola AutoBroker MX, quiero vender mi auto. ¿Me pueden asesorar?")}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Vende tu auto
-              </a>
+            <Button
+              size="lg"
+              variant="outline"
+              render={
+                <a
+                  href={whatsappLink("Hola AutoBroker MX, quiero vender mi auto. ¿Me pueden asesorar?")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              }
+            >
+              Vende tu auto
             </Button>
           </div>
         </div>

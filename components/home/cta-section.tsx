@@ -13,15 +13,19 @@ export function CtaSection() {
           Cobramos una comisión solo si vendemos. Escríbenos por WhatsApp y recibe asesoría sin compromiso.
         </p>
         <div className="mt-8 flex justify-center">
-          <Button asChild size="lg" variant="secondary">
-            <a
-              href={whatsappLink("Hola AutoBroker MX, quiero vender mi auto. ¿Me pueden asesorar?")}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="h-4 w-4" />
-              Escríbenos por WhatsApp
-            </a>
+          <Button
+            size="lg"
+            variant="secondary"
+            render={
+              <a
+                href={whatsappLink("Hola AutoBroker MX, quiero vender mi auto. ¿Me pueden asesorar?")}
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
+          >
+            <MessageCircle className="h-4 w-4" />
+            Escríbenos por WhatsApp
           </Button>
         </div>
       </div>

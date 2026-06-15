@@ -89,11 +89,13 @@ export default async function CarDetailPage({
             <h1 className="mt-3 text-2xl font-semibold tracking-tight text-foreground">{title}</h1>
             <p className="mt-2 text-3xl font-semibold text-foreground">{formatPrice(car.price)}</p>
 
-            <Button asChild size="lg" className="mt-6 w-full bg-[#25D366] text-white hover:bg-[#1faa54]">
-              <a href={whatsappLink(message)} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="h-4 w-4" />
-                Contactar por WhatsApp
-              </a>
+            <Button
+              size="lg"
+              className="mt-6 w-full bg-[#25D366] text-white hover:bg-[#1faa54]"
+              render={<a href={whatsappLink(message)} target="_blank" rel="noopener noreferrer" />}
+            >
+              <MessageCircle className="h-4 w-4" />
+              Contactar por WhatsApp
             </Button>
             <p className="mt-3 text-center text-xs text-muted-foreground">
               Te responderemos lo antes posible para coordinar una cita.

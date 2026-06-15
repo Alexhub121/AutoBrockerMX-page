@@ -77,11 +77,13 @@ export default function VendePage() {
             <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Comisión desde</p>
             <p className="mt-2 text-5xl font-semibold tracking-tight text-foreground">5%</p>
             <p className="mt-2 text-sm text-muted-foreground">sobre el valor final de venta</p>
-            <Button asChild size="lg" className="mt-6 w-full bg-[#25D366] text-white hover:bg-[#1faa54]">
-              <a href={whatsappLink(message)} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="h-4 w-4" />
-                Quiero vender mi auto
-              </a>
+            <Button
+              size="lg"
+              className="mt-6 w-full bg-[#25D366] text-white hover:bg-[#1faa54]"
+              render={<a href={whatsappLink(message)} target="_blank" rel="noopener noreferrer" />}
+            >
+              <MessageCircle className="h-4 w-4" />
+              Quiero vender mi auto
             </Button>
           </div>
         </div>

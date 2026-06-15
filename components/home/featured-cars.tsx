@@ -17,11 +17,9 @@ export function FeaturedCars() {
               Algunos de los vehículos disponibles en nuestra cartera.
             </p>
           </div>
-          <Button asChild variant="outline">
-            <Link href="/catalogo">
-              Ver todo el catálogo
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+          <Button variant="outline" render={<Link href="/catalogo" />}>
+            Ver todo el catálogo
+            <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
 

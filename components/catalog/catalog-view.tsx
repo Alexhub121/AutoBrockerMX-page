@@ -35,6 +35,26 @@ export function CatalogView({ cars, brands }: { cars: Car[]; brands: string[] })
     { label: "Hasta $600,000", value: "600000" },
   ]
 
+  // Mapas valor -> etiqueta para que el Select (base-ui) muestre el texto correcto
+  const brandItems = useMemo<Record<string, string>>(
+    () => ({ [ALL]: "Todas las marcas", ...Object.fromEntries(brands.map((b) => [b, b])) }),
+    [brands],
+  )
+  const bodyTypeItems = useMemo<Record<string, string>>(
+    () => ({ [ALL]: "Todos los tipos", ...Object.fromEntries(bodyTypes.map((b) => [b, b])) }),
+    [bodyTypes],
+  )
+  const priceItems = useMemo<Record<string, string>>(
+    () => ({ [ALL]: "Sin límite", ...Object.fromEntries(priceRanges.map((r) => [r.value, r.label])) }),
+    [],
+  )
+  const sortItems: Record<SortOption, string> = {
+    recent: "Más recientes",
+    "price-asc": "Precio: menor a mayor",
+    "price-desc": "Precio: mayor a menor",
+    "year-desc": "Año más nuevo",
+  }
+
   const filtered = useMemo(() => {
     let result = cars.filter((car) => {
       const matchesQuery =
@@ -98,8 +118,8 @@ export function CatalogView({ cars, brands }: { cars: Car[]; brands: string[] })
 
             <div className="space-y-2">
               <Label>Marca</Label>
-              <Select value={brand} onValueChange={setBrand}>
-                <SelectTrigger>
+              <Select items={brandItems} value={brand} onValueChange={setBrand}>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Todas" />
                 </SelectTrigger>
                 <SelectContent>
@@ -115,8 +135,8 @@ export function CatalogView({ cars, brands }: { cars: Car[]; brands: string[] })
 
             <div className="space-y-2">
               <Label>Tipo</Label>
-              <Select value={bodyType} onValueChange={setBodyType}>
-                <SelectTrigger>
+              <Select items={bodyTypeItems} value={bodyType} onValueChange={setBodyType}>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Todos" />
                 </SelectTrigger>
                 <SelectContent>
@@ -132,8 +152,8 @@ export function CatalogView({ cars, brands }: { cars: Car[]; brands: string[] })
 
             <div className="space-y-2">
               <Label>Precio máximo</Label>
-              <Select value={maxPrice} onValueChange={setMaxPrice}>
-                <SelectTrigger>
+              <Select items={priceItems} value={maxPrice} onValueChange={setMaxPrice}>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Sin límite" />
                 </SelectTrigger>
                 <SelectContent>
@@ -167,8 +187,8 @@ export function CatalogView({ cars, brands }: { cars: Car[]; brands: string[] })
             <Label htmlFor="sort" className="text-sm text-muted-foreground">
               Ordenar:
             </Label>
-            <Select value={sort} onValueChange={(v) => setSort(v as SortOption)}>
-              <SelectTrigger id="sort" className="w-[170px]">
+            <Select items={sortItems} value={sort} onValueChange={(v) => setSort(v as SortOption)}>
+              <SelectTrigger id="sort" className="w-[190px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
