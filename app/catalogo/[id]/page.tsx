@@ -37,7 +37,8 @@ export default async function CarDetailPage({
 
   if (!car) notFound()
 
-  const images = [car.image, ...(car.gallery ?? [])]
+  // Todas las fotos del auto vienen del campo `images` en lib/cars.ts
+  const images = car.images
   const title = `${car.brand} ${car.model} ${car.year}`
   const message = `Hola AutoBroker MX, me interesa el ${title} que vi en su sitio web (${formatPrice(car.price)}). ¿Sigue disponible?`
 

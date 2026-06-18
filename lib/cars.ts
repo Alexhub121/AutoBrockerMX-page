@@ -2,13 +2,32 @@ import type { Car } from "@/lib/types"
 
 /**
  * CATÁLOGO DE AUTOS
- * -----------------------------------------------------------------------------
- * Para PUBLICAR un auto nuevo: copia uno de los objetos de abajo, pégalo dentro
- * del arreglo, cambia los datos y la imagen, y guarda. El catálogo se actualiza
- * solo. La imagen debe estar en la carpeta /public/cars/.
+ * =============================================================================
+ * Aquí controlas TODO el catálogo. No necesitas tocar ningún otro archivo.
  *
- * Para OCULTAR/MARCAR como vendido: agrega `sold: true` al auto.
- * Para DESTACAR en la página de inicio: agrega `featured: true`.
+ * ----- CÓMO PUBLICAR UN AUTO NUEVO -----
+ * 1. Copia uno de los objetos { ... } de abajo (desde la "{" hasta la "}").
+ * 2. Pégalo dentro del arreglo (entre los corchetes [ ]), separado por una coma.
+ * 3. Cambia sus datos (id, marca, modelo, precio, etc.).
+ * 4. Guarda. El catálogo se actualiza solo.
+ *
+ * ----- CÓMO AGREGAR VARIAS FOTOS A UN AUTO -----
+ * Cada auto tiene un campo `images` que es una LISTA de fotos:
+ *
+ *     images: [
+ *       "/cars/mi-auto-frente.png",   <- esta es la PORTADA (se ve primero)
+ *       "/cars/mi-auto-atras.png",
+ *       "/cars/mi-auto-interior.png",
+ *     ],
+ *
+ * Puedes poner cuantas fotos quieras: solo agrega más líneas con su ruta.
+ * Todas las fotos deben estar guardadas en la carpeta /public/cars/.
+ * En el catálogo se podrán ver con flechas, y en el detalle con miniaturas.
+ *
+ * ----- OTROS AJUSTES -----
+ * - Para MARCAR como vendido:      agrega  sold: true
+ * - Para DESTACAR en el inicio:    agrega  featured: true
+ * =============================================================================
  */
 export const cars: Car[] = [
   {
@@ -23,7 +42,8 @@ export const cars: Car[] = [
     bodyType: "Sedán",
     color: "Plata",
     location: "Aguascalientes",
-    image: "/cars/nissan-versa.png",
+    // Varias fotos: la primera es la portada. Agrega o quita rutas aquí.
+    images: ["/cars/nissan-versa.png", "/cars/nissan-versa-2.png", "/cars/nissan-versa-3.png"],
     description:
       "Nissan Versa Advance en excelente estado, un solo dueño y mantenimientos al día en agencia. Ideal para ciudad por su bajo consumo de combustible y amplio espacio interior.",
     features: ["Pantalla táctil", "Cámara de reversa", "Aire acondicionado", "Bluetooth", "Rines de aluminio"],
@@ -41,7 +61,7 @@ export const cars: Car[] = [
     bodyType: "Sedán",
     color: "Gris",
     location: "Aguascalientes",
-    image: "/cars/vw-jetta.png",
+    images: ["/cars/vw-jetta.png", "/cars/vw-jetta-2.png", "/cars/vw-jetta-3.png"],
     description:
       "Volkswagen Jetta Comfortline con acabados de lujo, motor turbo eficiente y manejo suave. Documentación en regla y listo para traspaso inmediato.",
     features: ["Quemacocos", "Asientos de piel", "Control de crucero", "Sensores de estacionamiento", "Faros LED"],
@@ -59,7 +79,7 @@ export const cars: Car[] = [
     bodyType: "Sedán",
     color: "Blanco",
     location: "Aguascalientes",
-    image: "/cars/toyota-corolla.png",
+    images: ["/cars/toyota-corolla.png", "/cars/toyota-corolla-2.png", "/cars/toyota-corolla-3.png"],
     description:
       "Toyota Corolla LE prácticamente nuevo, con la confiabilidad y bajo mantenimiento que caracteriza a la marca. Garantía de agencia vigente.",
     features: ["Apple CarPlay", "Android Auto", "Cámara de reversa", "Asistente de frenado", "Climatizador automático"],
@@ -77,7 +97,8 @@ export const cars: Car[] = [
     bodyType: "SUV",
     color: "Rojo",
     location: "Aguascalientes",
-    image: "/cars/mazda-cx5.png",
+    // Este auto solo tiene una foto por ahora. Agrega más rutas para mostrar más.
+    images: ["/cars/mazda-cx5.png"],
     description:
       "Mazda CX-5 Grand Touring, una SUV elegante y deportiva con interiores premium. Excelente para familia y carretera, en condiciones impecables.",
     features: ["Piel Nappa", "Quemacocos panorámico", "Sonido Bose", "Cámara 360°", "Apertura sin llave"],
@@ -94,7 +115,7 @@ export const cars: Car[] = [
     bodyType: "Sedán",
     color: "Negro",
     location: "Aguascalientes",
-    image: "/cars/honda-civic.png",
+    images: ["/cars/honda-civic.png"],
     description:
       "Honda Civic Turbo con diseño deportivo y gran rendimiento. Motor turbo de bajo consumo, perfecto estado mecánico y estético.",
     features: ["Motor turbo", "Pantalla táctil", "Control de crucero", "Rines deportivos", "Modo eco"],
@@ -111,7 +132,7 @@ export const cars: Car[] = [
     bodyType: "Hatchback",
     color: "Azul",
     location: "Aguascalientes",
-    image: "/cars/kia-rio.png",
+    images: ["/cars/kia-rio.png"],
     description:
       "Kia Rio Hatchback EX, compacto, ágil y muy económico. Ideal como primer auto o para uso diario en la ciudad. Llantas nuevas.",
     features: ["Pantalla táctil", "Cámara de reversa", "Bluetooth", "Volante con controles", "Bajo consumo"],

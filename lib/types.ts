@@ -17,10 +17,15 @@ export interface Car {
   bodyType: BodyType
   color: string
   location: string
-  /** Imagen principal (ruta dentro de /public) */
-  image: string
-  /** Galería de imágenes adicionales (opcional) */
-  gallery?: string[]
+  /**
+   * GALERÍA DE FOTOS DEL AUTO.
+   * Es una lista de rutas de imágenes (dentro de la carpeta /public).
+   * - La PRIMERA imagen de la lista es la foto principal (portada) que se ve
+   *   primero en el catálogo y en el detalle.
+   * - Puedes agregar TODAS las fotos que quieras: solo añade más rutas separadas
+   *   por comas. Ej: ["/cars/auto-1.png", "/cars/auto-2.png", "/cars/auto-3.png"]
+   */
+  images: string[]
   /** Descripción larga del vehículo */
   description: string
   /** Lista de características / equipamiento */
