@@ -49,40 +49,40 @@
 }
 
 :root {
-  color-scheme: light;
-  /* Paleta AutoBroker MX: blanco, grises neutros y azul marino profundo */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.21 0.02 256);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.21 0.02 256);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.21 0.02 256);
-  --primary: oklch(0.31 0.06 256);
-  --primary-foreground: oklch(0.98 0.005 256);
-  --secondary: oklch(0.97 0.005 256);
-  --secondary-foreground: oklch(0.31 0.06 256);
-  --muted: oklch(0.968 0.004 256);
-  --muted-foreground: oklch(0.52 0.02 256);
-  --accent: oklch(0.95 0.01 256);
-  --accent-foreground: oklch(0.31 0.06 256);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.91 0.006 256);
-  --input: oklch(0.91 0.006 256);
-  --ring: oklch(0.31 0.06 256);
-  --chart-1: oklch(0.31 0.06 256);
-  --chart-2: oklch(0.45 0.05 256);
-  --chart-3: oklch(0.58 0.04 256);
-  --chart-4: oklch(0.7 0.03 256);
-  --chart-5: oklch(0.82 0.02 256);
+  color-scheme: dark;
+  /* Paleta AutoBroker MX: negro carbón, rojo intenso y plata/cromo */
+  --background: oklch(0.16 0.004 264);
+  --foreground: oklch(0.95 0.003 264);
+  --card: oklch(0.205 0.005 264);
+  --card-foreground: oklch(0.95 0.003 264);
+  --popover: oklch(0.2 0.005 264);
+  --popover-foreground: oklch(0.95 0.003 264);
+  --primary: oklch(0.57 0.235 26);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.27 0.006 264);
+  --secondary-foreground: oklch(0.95 0.003 264);
+  --muted: oklch(0.25 0.005 264);
+  --muted-foreground: oklch(0.72 0.006 264);
+  --accent: oklch(0.3 0.008 264);
+  --accent-foreground: oklch(0.97 0.003 264);
+  --destructive: oklch(0.57 0.235 26);
+  --border: oklch(0.32 0.006 264);
+  --input: oklch(0.3 0.006 264);
+  --ring: oklch(0.57 0.235 26);
+  --chart-1: oklch(0.57 0.235 26);
+  --chart-2: oklch(0.7 0.18 28);
+  --chart-3: oklch(0.72 0.006 264);
+  --chart-4: oklch(0.55 0.006 264);
+  --chart-5: oklch(0.4 0.006 264);
   --radius: 0.5rem;
-  --sidebar: oklch(0.985 0.003 256);
-  --sidebar-foreground: oklch(0.21 0.02 256);
-  --sidebar-primary: oklch(0.31 0.06 256);
-  --sidebar-primary-foreground: oklch(0.98 0.005 256);
-  --sidebar-accent: oklch(0.95 0.01 256);
-  --sidebar-accent-foreground: oklch(0.31 0.06 256);
-  --sidebar-border: oklch(0.91 0.006 256);
-  --sidebar-ring: oklch(0.31 0.06 256);
+  --sidebar: oklch(0.18 0.004 264);
+  --sidebar-foreground: oklch(0.95 0.003 264);
+  --sidebar-primary: oklch(0.57 0.235 26);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.3 0.008 264);
+  --sidebar-accent-foreground: oklch(0.97 0.003 264);
+  --sidebar-border: oklch(0.32 0.006 264);
+  --sidebar-ring: oklch(0.57 0.235 26);
 }
 
 .dark {
@@ -166,5 +166,61 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+@layer utilities {
+  /* Tipografía de marca tipo logo: condensada, pesada e itálica */
+  .font-brand {
+    font-family: var(--font-brand), 'Geist Fallback', sans-serif;
+    font-style: italic;
+    letter-spacing: 0.01em;
+  }
+
+  /* Texto con acabado cromado/metálico (plata) */
+  .text-chrome {
+    background: linear-gradient(
+      180deg,
+      oklch(0.98 0 0) 0%,
+      oklch(0.8 0.004 264) 42%,
+      oklch(0.55 0.006 264) 52%,
+      oklch(0.92 0.003 264) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Texto rojo con brillo metálico */
+  .text-chrome-red {
+    background: linear-gradient(
+      180deg,
+      oklch(0.72 0.2 28) 0%,
+      oklch(0.55 0.24 26) 50%,
+      oklch(0.42 0.2 26) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Fondo de fibra de carbono con patrón hexagonal sutil */
+  .bg-carbon {
+    background-color: oklch(0.16 0.004 264);
+    background-image:
+      radial-gradient(circle at 50% 0%, oklch(0.24 0.02 26 / 0.25) 0%, transparent 55%),
+      repeating-conic-gradient(
+        from 30deg,
+        oklch(0.2 0.004 264) 0deg 60deg,
+        oklch(0.17 0.004 264) 60deg 120deg
+      );
+    background-size:
+      100% 100%,
+      28px 48px;
+  }
+
+  /* Línea/acento rojo brillante */
+  .glow-red {
+    box-shadow: 0 0 24px -4px oklch(0.57 0.235 26 / 0.55);
   }
 }
