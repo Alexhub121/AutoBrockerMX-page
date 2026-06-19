@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Saira_Condensed } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
@@ -9,6 +9,11 @@ import "./globals.css";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+const sairaCondensed = Saira_Condensed({
+  variable: "--font-brand",
+  weight: ["600", "700", "800"],
   subsets: ["latin"],
 });
 
@@ -47,11 +52,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  colorScheme: "dark",
+  themeColor: "#121212",
 };
 
 export default function RootLayout({
@@ -62,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`light bg-background ${geistSans.variable} ${geistMono.variable}`}
+      className={`dark bg-background ${geistSans.variable} ${geistMono.variable} ${sairaCondensed.variable}`}
     >
       <body className="font-sans antialiased">
         <div className="flex min-h-dvh flex-col">
