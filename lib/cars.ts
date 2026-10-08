@@ -15,9 +15,9 @@ import type { Car } from "@/lib/types";
  * Cada auto tiene un campo `images` que es una LISTA de fotos:
  *
  *     images: [
- *       "/cars/mi-auto-frente.png",   <- esta es la PORTADA (se ve primero)
- *       "/cars/mi-auto-atras.png",
- *       "/cars/mi-auto-interior.png",
+ *       "/cars/mi-auto-frente.webp",   <- esta es la PORTADA (se ve primero)
+ *       "/cars/mi-auto-atras.webp",
+ *       "/cars/mi-auto-interior.webp",
  *     ],
  *
  * Puedes poner cuantas fotos quieras: solo agrega más líneas con su ruta.
@@ -44,9 +44,9 @@ export const cars: Car[] = [
     location: "Aguascalientes",
     // Varias fotos: la primera es la portada. Agrega o quita rutas aquí.
     images: [
-      "/cars/nissan-versa.png",
-      "/cars/nissan-versa-2.png",
-      "/cars/nissan-versa-3.png",
+      "/cars/nissan-versa.webp",
+      "/cars/nissan-versa-2.webp",
+      "/cars/nissan-versa-3.webp",
     ],
     description:
       "Nissan Versa Advance en excelente estado, un solo dueño y mantenimientos al día en agencia. Ideal para ciudad por su bajo consumo de combustible y amplio espacio interior.",
@@ -72,9 +72,9 @@ export const cars: Car[] = [
     color: "Gris",
     location: "Aguascalientes",
     images: [
-      "/cars/vw-jetta.png",
-      "/cars/vw-jetta-2.png",
-      "/cars/vw-jetta-3.png",
+      "/cars/vw-jetta.webp",
+      "/cars/vw-jetta-2.webp",
+      "/cars/vw-jetta-3.webp",
     ],
     description:
       "Volkswagen Jetta Comfortline con acabados de lujo, motor turbo eficiente y manejo suave. Documentación en regla y listo para traspaso inmediato.",
@@ -100,9 +100,9 @@ export const cars: Car[] = [
     color: "Blanco",
     location: "Aguascalientes",
     images: [
-      "/cars/toyota-corolla.png",
-      "/cars/toyota-corolla-2.png",
-      "/cars/toyota-corolla-3.png",
+      "/cars/toyota-corolla.webp",
+      "/cars/toyota-corolla-2.webp",
+      "/cars/toyota-corolla-3.webp",
     ],
     description:
       "Toyota Corolla LE prácticamente nuevo, con la confiabilidad y bajo mantenimiento que caracteriza a la marca. Garantía de agencia vigente.",
@@ -128,7 +128,7 @@ export const cars: Car[] = [
     color: "Rojo",
     location: "Aguascalientes",
     // Este auto solo tiene una foto por ahora. Agrega más rutas para mostrar más.
-    images: ["/cars/mazda-cx5.png"],
+    images: ["/cars/mazda-cx5.webp"],
     description:
       "Mazda CX-5 Grand Touring, una SUV elegante y deportiva con interiores premium. Excelente para familia y carretera, en condiciones impecables.",
     features: [
@@ -151,7 +151,7 @@ export const cars: Car[] = [
     bodyType: "Sedán",
     color: "Negro",
     location: "Aguascalientes",
-    images: ["/cars/honda-civic.png"],
+    images: ["/cars/honda-civic.webp"],
     description:
       "Honda Civic Turbo con diseño deportivo y gran rendimiento. Motor turbo de bajo consumo, perfecto estado mecánico y estético.",
     features: [
@@ -174,7 +174,7 @@ export const cars: Car[] = [
     bodyType: "Hatchback",
     color: "Azul",
     location: "Aguascalientes",
-    images: ["/cars/kia-rio.png"],
+    images: ["/cars/kia-rio.webp"],
     description:
       "Kia Rio Hatchback EX, compacto, ágil y muy económico. Ideal como primer auto o para uso diario en la ciudad. Llantas nuevas.",
     features: [
@@ -191,17 +191,17 @@ export const cars: Car[] = [
     model: "X-Trail 2.0",
     year: 2026,
     price: 215000,
-    mileage: 122.473,
+    mileage: 122473,
     transmission: "Automática",
     fuel: "Gasolina",
-    bodyType: "Hatchback",
+    bodyType: "SUV",
     color: "Gris",
     location: "Aguascalientes",
     images: [
-      "/cars/Xtrail-Picture/Fotos/Xtrail_FrontRaight.jpeg",
-      "/cars/Xtrail-Picture/Fotos/Xtrail_SitBack.jpeg",
-      "/cars/Xtrail-Picture/Fotos/Xtrail_SItBack2.jpeg",
-      "/cars/Xtrail-Picture/Fotos/Xtrail_SItFront.jpeg",
+      "/cars/Xtrail-Picture/Fotos/Xtrail_FrontRaight.webp",
+      "/cars/Xtrail-Picture/Fotos/Xtrail_SitBack.webp",
+      "/cars/Xtrail-Picture/Fotos/Xtrail_SItBack2.webp",
+      "/cars/Xtrail-Picture/Fotos/Xtrail_SItFront.webp",
     ],
     description:
       "Nissan X-Trail 2.0, vehículo versátil y potente. Ideal para aventuras y uso diario en la ciudad. Llantas nuevas.",
@@ -215,7 +215,11 @@ export const cars: Car[] = [
   },
 ];
 
-/** Devuelve todos los autos disponibles (no vendidos) */
+/**
+ * Devuelve TODOS los autos del catálogo, incluidos los vendidos.
+ * Los vendidos se muestran con la etiqueta "Vendido" en la tarjeta y en el
+ * detalle, donde además se deshabilita el botón de contacto.
+ */
 export function getAllCars(): Car[] {
   return cars;
 }

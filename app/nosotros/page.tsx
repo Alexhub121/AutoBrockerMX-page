@@ -5,6 +5,9 @@ import { CtaSection } from "@/components/home/cta-section"
 
 export const metadata: Metadata = {
   title: "Nosotros",
+  alternates: {
+    canonical: "/nosotros",
+  },
   description:
     "Conoce AutoBroker MX: intermediación automotriz profesional que conecta propietarios con compradores en todo México.",
 }

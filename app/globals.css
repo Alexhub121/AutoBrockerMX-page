@@ -189,4 +189,12 @@
   .glow-red {
     box-shadow: 0 0 24px -4px oklch(0.57 0.235 26 / 0.55);
   }
+
+  /* Texto rojo sobre fondos oscuros.
+     --primary (oklch 0.57) da solo 3.6:1 sobre --card y NO sirve para texto
+     pequeño (WCAG AA pide 4.5:1). Esta variante da 4.66:1 sin romper los
+     botones, que conservan --primary con texto blanco (4.98:1). */
+  .text-primary-readable {
+    color: oklch(0.63 0.19 26);
+  }
 }

@@ -23,7 +23,7 @@ export interface Car {
    * - La PRIMERA imagen de la lista es la foto principal (portada) que se ve
    *   primero en el catálogo y en el detalle.
    * - Puedes agregar TODAS las fotos que quieras: solo añade más rutas separadas
-   *   por comas. Ej: ["/cars/auto-1.png", "/cars/auto-2.png", "/cars/auto-3.png"]
+   *   por comas. Ej: ["/cars/auto-1.webp", "/cars/auto-2.webp", "/cars/auto-3.webp"]
    */
   images: string[]
   /** Descripción larga del vehículo */
@@ -34,4 +34,10 @@ export interface Car {
   featured?: boolean
   /** Si true, ya fue vendido (se muestra como "Vendido") */
   sold?: boolean
+  /**
+   * Fecha de publicación en formato ISO (YYYY-MM-DD). Opcional.
+   * Si la pones, el catálogo la usa para ordenar por "Más recientes".
+   * Ej: addedAt: "2026-10-08"
+   */
+  addedAt?: string
 }

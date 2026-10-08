@@ -8,6 +8,9 @@ import { whatsappLink } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Contacto",
+  alternates: {
+    canonical: "/contacto",
+  },
   description: "Contáctanos por WhatsApp, correo o redes sociales. AutoBroker MX, intermediación automotriz en México.",
 }
 

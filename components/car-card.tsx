@@ -48,7 +48,7 @@ export function CarCard({ car }: { car: Car }) {
               type="button"
               onClick={(e) => go(e, -1)}
               aria-label="Foto anterior"
-              className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-background/70 p-1.5 text-foreground opacity-0 backdrop-blur transition-opacity hover:bg-background group-hover:opacity-100"
+              className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-background/70 p-1.5 text-foreground opacity-100 backdrop-blur transition-opacity hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
@@ -56,7 +56,7 @@ export function CarCard({ car }: { car: Car }) {
               type="button"
               onClick={(e) => go(e, 1)}
               aria-label="Foto siguiente"
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-background/70 p-1.5 text-foreground opacity-0 backdrop-blur transition-opacity hover:bg-background group-hover:opacity-100"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-background/70 p-1.5 text-foreground opacity-100 backdrop-blur transition-opacity hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
             >
               <ChevronRight className="h-4 w-4" />
             </button>
@@ -100,7 +100,7 @@ export function CarCard({ car }: { car: Car }) {
 
         <div className="mt-4 flex items-end justify-between border-t border-border pt-4">
           <span className="text-lg font-semibold text-foreground">{formatPrice(car.price)}</span>
-          <span className="text-sm font-medium text-primary group-hover:underline">Ver detalle</span>
+          <span className="text-sm font-medium text-primary-readable group-hover:underline">Ver detalle</span>
         </div>
       </div>
     </Link>

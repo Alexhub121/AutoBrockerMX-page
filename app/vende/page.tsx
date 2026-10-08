@@ -6,6 +6,9 @@ import { whatsappLink } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Vende tu auto",
+  alternates: {
+    canonical: "/vende",
+  },
   description:
     "Vende tu auto con AutoBroker MX. Nos encargamos de la promoción, el filtrado de compradores y el cierre de la venta. Comisión solo por venta exitosa.",
 }
@@ -25,7 +28,20 @@ const services = [
 ]
 
 export default function VendePage() {
-  const message = "Hola AutoBroker MX, quiero vender mi auto. Estos son los datos: marca, modelo, año y kilometraje."
+  // Mensaje con campos vacíos para que el cliente solo los rellene y envíe.
+  // Los saltos de línea se conservan en WhatsApp (%0A).
+  const message = [
+    "Hola AutoBroker MX, quiero vender mi auto.",
+    "",
+    "Marca:",
+    "Modelo:",
+    "Año:",
+    "Kilometraje:",
+    "Ciudad:",
+    "Estado del auto:",
+    "",
+    "(Sigue adjuntando fotos por aquí)",
+  ].join("\n")
 
   return (
     <>
@@ -79,7 +95,7 @@ export default function VendePage() {
             <p className="mt-2 text-sm text-muted-foreground">sobre el valor final de venta</p>
             <Button
               size="lg"
-              className="mt-6 w-full bg-[#25D366] text-white hover:bg-[#1faa54]"
+              className="mt-6 w-full bg-[#25D366] text-[#052E19] hover:bg-[#1faa54]"
               render={<a href={whatsappLink(message)} target="_blank" rel="noopener noreferrer" />}
             >
               <MessageCircle className="h-4 w-4" />

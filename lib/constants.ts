@@ -11,19 +11,19 @@ export const COMPANY = {
   email: "contacto@autobrokermx.com",
   city: "Aguascalientes, México",
   coverage: "Servicio en toda la República Mexicana",
-} as const
+} as const;
 
-/** Número de WhatsApp en formato internacional sin signos ni espacios (524494529700) */
-export const WHATSAPP_NUMBER = "524494529700"
+/** Número de WhatsApp en formato internacional sin signos ni espacios (52 449 452 9700) */
+export const WHATSAPP_NUMBER = "524494529700";
 
-/** Número en formato legible para mostrar en pantalla */
-export const WHATSAPP_DISPLAY = "+52 449 452 9700"
+/** Número en formato legible para mostrar en pantalla. DEBE coincidir con WHATSAPP_NUMBER. */
+export const WHATSAPP_DISPLAY = "+52 449 452 9700";
 
 export const SOCIAL_LINKS = {
   instagram: "https://instagram.com/autobrokermx",
   tiktok: "https://tiktok.com/@autobrokermx",
   facebook: "https://facebook.com/autobrokermx",
-} as const
+} as const;
 
 export const NAV_LINKS = [
   { label: "Inicio", href: "/" },
@@ -31,4 +31,4 @@ export const NAV_LINKS = [
   { label: "Vende tu auto", href: "/vende" },
   { label: "Nosotros", href: "/nosotros" },
   { label: "Contacto", href: "/contacto" },
-] as const
+] as const;

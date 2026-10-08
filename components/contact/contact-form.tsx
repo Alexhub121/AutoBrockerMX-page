@@ -22,9 +22,13 @@ export function ContactForm() {
     return lines.join(" ")
   }
 
+  // Se usa un enlace <a> en vez de window.open(): los bloqueadores de ventanas
+  // emergentes a veces impiden abrir WhatsApp desde un submit programático.
+  const href = whatsappLink(buildMessage())
+
   const handleSubmit = (e: React.FormEvent) => {
+    // Enter dentro de los campos no debe recargar la página.
     e.preventDefault()
-    window.open(whatsappLink(buildMessage()), "_blank", "noopener,noreferrer")
   }
 
   return (
@@ -37,7 +41,15 @@ export function ContactForm() {
       <div className="mt-5 space-y-4">
         <div className="space-y-2">
           <Label htmlFor="name">Nombre</Label>
-          <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Tu nombre" />
+          <Input
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Tu nombre"
+            required
+            minLength={2}
+            autoComplete="name"
+          />
         </div>
         <div className="space-y-2">
           <Label htmlFor="car">Auto de interés (opcional)</Label>
@@ -58,7 +70,11 @@ export function ContactForm() {
             rows={4}
           />
         </div>
-        <Button type="submit" size="lg" className="w-full bg-[#25D366] text-white hover:bg-[#1faa54]">
+        <Button
+          size="lg"
+          className="w-full bg-[#25D366] text-[#052E19] hover:bg-[#1faa54]"
+          render={<a href={href} target="_blank" rel="noopener noreferrer" />}
+        >
           <MessageCircle className="h-4 w-4" />
           Enviar por WhatsApp
         </Button>

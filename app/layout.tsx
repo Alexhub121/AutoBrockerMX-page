@@ -4,6 +4,9 @@ import { Geist, Geist_Mono, Saira_Condensed } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
+import { COMPANY } from "@/lib/constants";
+import { SITE_URL, OG_IMAGE, businessJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/json-ld";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -18,6 +21,10 @@ const sairaCondensed = Saira_Condensed({
 });
 
 export const metadata: Metadata = {
+  // URL base para que Next convierta las rutas relativas en absolutas
+  // (sitemap, canonical y etiquetas OpenGraph). Cambia SITE_URL en lib/seo.ts
+  // si el dominio final es otro.
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "AutoBroker MX | Intermediación automotriz profesional",
     template: "%s | AutoBroker MX",
@@ -32,6 +39,37 @@ export const metadata: Metadata = {
     "AutoBroker MX",
   ],
   generator: "v0.app",
+  applicationName: COMPANY.name,
+  authors: [{ name: COMPANY.name }],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_MX",
+    siteName: COMPANY.name,
+    title: "AutoBroker MX | Intermediación automotriz profesional",
+    description: COMPANY.description,
+    url: "/",
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: "AutoBroker MX — Intermediación automotriz profesional",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AutoBroker MX | Intermediación automotriz profesional",
+    description: COMPANY.description,
+    images: [OG_IMAGE],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: [
       {
@@ -67,13 +105,29 @@ export default function RootLayout({
       className={`dark bg-background ${geistSans.variable} ${geistMono.variable} ${sairaCondensed.variable}`}
     >
       <body className="font-sans antialiased">
+        {/* Accesibilidad: permite saltar la navegación con el teclado (Tab). */}
+        <a
+          href="#contenido"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground focus:shadow-lg"
+        >
+          Saltar al contenido principal
+        </a>
         <div className="flex min-h-dvh flex-col">
           <SiteHeader />
-          <main className="flex-1">{children}</main>
+          <main id="contenido" tabIndex={-1} className="flex-1">
+            {children}
+          </main>
           <SiteFooter />
         </div>
-        <WhatsAppFloat />
-        {process.env.NODE_ENV === "production" && <Analytics />}
+        {/* role/region: el botón flotante queda fuera de <main> y <footer>, sin
+            un landmark el axe lo reporta como contenido fuera de landmarks. */}
+        <div role="region" aria-label="Contacto rápido por WhatsApp">
+          <WhatsAppFloat />
+        </div>
+        {/* Analytics solo en Vercel: en local el script devolvería 404 */}
+        {process.env.VERCEL && <Analytics />}
+        {/* Datos estructurados del negocio (SEO: aparecen en Google) */}
+        <JsonLd data={businessJsonLd()} />
       </body>
     </html>
   );

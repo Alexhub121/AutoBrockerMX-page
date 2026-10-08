@@ -74,9 +74,14 @@ export function SiteFooter() {
                   {WHATSAPP_DISPLAY}
                 </a>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Mail className="h-4 w-4 shrink-0" />
-                <a href={`mailto:${COMPANY.email}`} className="transition-colors hover:text-foreground">
+              <li className="flex items-start gap-2.5">
+                <Mail className="mt-0.5 h-4 w-4 shrink-0" />
+                {/* min-w-0 + break-words: el email es una palabra larga sin espacios;
+                    sin esto desborda su columna y genera scroll horizontal en toda la web. */}
+                <a
+                  href={`mailto:${COMPANY.email}`}
+                  className="min-w-0 break-words transition-colors hover:text-foreground"
+                >
                   {COMPANY.email}
                 </a>
               </li>
