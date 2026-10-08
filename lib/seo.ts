@@ -4,11 +4,13 @@ import { COMPANY, WHATSAPP_NUMBER, SOCIAL_LINKS } from "@/lib/constants"
 /**
  * Configuración SEO del sitio.
  *
- * IMPORTANTE: cambia SITE_URL por el dominio definitivo cuando se publique
- * (por ejemplo https://www.tudominio.com). De aquí salen las URLs absolutas
- * del sitemap, el canonical y las etiquetas OpenGraph.
+ * IMPORTANTE: cuando se compre el dominio propio (autobrokermx.com),
+ * cambia SITE_URL por ese dominio y haz redeploy. De aquí salen las URLs
+ * absolutas del sitemap, el canonical y las etiquetas OpenGraph.
+ *
+ * Mientras tanto se usa la URL temporal de Vercel, que sí está en línea.
  */
-export const SITE_URL = "https://autobrokermx.com"
+export const SITE_URL = "https://auto-brocker-mx-page.vercel.app"
 
 /** URL absoluta a partir de una ruta ("/catalogo" -> "https://.../catalogo") */
 export function absoluteUrl(path: string = "/"): string {
