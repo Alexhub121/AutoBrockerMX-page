@@ -49,7 +49,7 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
 
   return (
     <div>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border bg-muted">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-card">
         <Image
           src={safeImages[active] || "/placeholder.svg"}
           alt={alt}
@@ -65,9 +65,9 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
           type="button"
           onClick={() => setOpen(true)}
           aria-label={`Ampliar foto ${active + 1} de ${total}`}
-          className="group/zoom absolute inset-0 flex cursor-zoom-in items-end justify-end p-3 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#25D366]"
+          className="group/zoom absolute inset-0 flex cursor-zoom-in items-end justify-end p-3 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-ring"
         >
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-background/75 px-2 py-1 text-xs font-medium text-foreground opacity-0 backdrop-blur transition-opacity group-hover/zoom:opacity-100 group-focus-visible/zoom:opacity-100">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-background/75 px-2.5 py-1 text-xs font-medium text-foreground opacity-0 backdrop-blur transition-opacity group-hover/zoom:opacity-100 group-focus-visible/zoom:opacity-100">
             <ZoomIn className="h-3.5 w-3.5" />
             Ampliar
           </span>
@@ -80,7 +80,7 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
               type="button"
               onClick={() => go(-1)}
               aria-label="Foto anterior"
-              className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-background/70 p-2 text-foreground opacity-100 backdrop-blur transition-opacity hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
+              className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-background/70 p-2 text-foreground opacity-100 backdrop-blur transition-opacity hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -88,7 +88,7 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
               type="button"
               onClick={() => go(1)}
               aria-label="Foto siguiente"
-              className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-background/70 p-2 text-foreground opacity-100 backdrop-blur transition-opacity hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
+              className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-background/70 p-2 text-foreground opacity-100 backdrop-blur transition-opacity hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -96,14 +96,14 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
         )}
 
         {/* Contador */}
-        <span className="absolute right-2 bottom-2 rounded-md bg-background/75 px-2 py-0.5 text-xs font-medium text-foreground backdrop-blur">
+        <span className="tabular absolute right-3 bottom-3 rounded-full bg-background/75 px-2.5 py-1 text-xs font-medium text-foreground backdrop-blur">
           {active + 1} de {total}
         </span>
       </div>
 
       {/* Miniaturas */}
       {hasMultiple && (
-        <div className="mt-3 flex gap-3">
+        <div className="mt-3 flex gap-3 overflow-x-auto p-1">
           {safeImages.map((img, i) => (
             <button
               key={img + i}
@@ -112,8 +112,8 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
               aria-label={`Ver imagen ${i + 1}`}
               aria-current={active === i}
               className={cn(
-                "relative aspect-[4/3] w-24 shrink-0 overflow-hidden rounded-md border bg-muted transition-colors",
-                active === i ? "border-primary ring-1 ring-primary" : "border-border hover:border-muted-foreground",
+                "pressable relative aspect-[4/3] w-24 shrink-0 overflow-hidden rounded-xl bg-card ring-offset-2 ring-offset-background transition-[opacity,box-shadow] duration-200",
+                active === i ? "ring-2 ring-primary" : "opacity-60 hover:opacity-100",
               )}
             >
               <Image src={img || "/placeholder.svg"} alt="" fill sizes="96px" className="object-cover" />
@@ -131,7 +131,7 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
           onClick={(e) => {
             if (e.target === e.currentTarget) setOpen(false)
           }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 p-4"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 p-4 [animation:fade-only_200ms_var(--ease-out)_both]"
         >
           <button
             ref={closeBtnRef}

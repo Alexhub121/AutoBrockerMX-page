@@ -40,9 +40,9 @@ export default function CatalogoPage() {
         title="Catálogo de autos"
         description="Explora nuestra cartera de vehículos. Cuando encuentres el que te interesa, contáctanos por WhatsApp."
       />
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
         {/* Suspense es obligatorio porque CatalogView usa useSearchParams */}
-        <Suspense fallback={<div className="h-96 animate-pulse rounded-lg bg-muted" aria-hidden="true" />}>
+        <Suspense fallback={<div className="h-96 animate-pulse rounded-2xl bg-card" aria-hidden="true" />}>
           <CatalogView cars={cars} brands={brands} />
         </Suspense>
       </section>

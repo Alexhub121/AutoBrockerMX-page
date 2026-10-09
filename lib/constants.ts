@@ -32,3 +32,12 @@ export const NAV_LINKS = [
   { label: "Nosotros", href: "/nosotros" },
   { label: "Contacto", href: "/contacto" },
 ] as const;
+
+/**
+ * Foto principal del inicio (auto bajo el reflector). También se reutiliza,
+ * atenuada, en la sección de cierre. Debe estar en /public.
+ */
+export const HERO_IMAGE = {
+  src: "/cars/mustang.jpg",
+  alt: "Ford Mustang negro iluminado por un reflector en un showroom",
+} as const

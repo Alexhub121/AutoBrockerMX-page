@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
-import { Camera, FileText, Search, Handshake, Check, MessageCircle, Wrench, Sparkles } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button, ButtonArrow } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 import { whatsappLink } from "@/lib/utils"
 
@@ -14,18 +13,21 @@ export const metadata: Metadata = {
 }
 
 const steps = [
-  { icon: MessageCircle, title: "Envíanos tu auto", description: "Mándanos fotos y datos del vehículo por WhatsApp." },
-  { icon: Camera, title: "Lo promocionamos", description: "Creamos contenido profesional y lo publicamos en varios canales." },
-  { icon: Search, title: "Filtramos compradores", description: "Seleccionamos al mejor postor y coordinamos las citas." },
-  { icon: Handshake, title: "Cerramos la venta", description: "Te asesoramos en trámites y documentación hasta concretar." },
+  { title: "Envíanos tu auto", description: "Mándanos fotos y datos del vehículo por WhatsApp." },
+  { title: "Lo promocionamos", description: "Creamos contenido profesional y lo publicamos en varios canales." },
+  { title: "Filtramos compradores", description: "Seleccionamos al mejor postor y coordinamos las citas." },
+  { title: "Cerramos la venta", description: "Te asesoramos en trámites y documentación hasta concretar." },
 ]
 
 const services = [
-  { icon: Camera, title: "Fotografía profesional", description: "Edición de imágenes para que tu auto luzca al máximo." },
-  { icon: Sparkles, title: "Publicación destacada", description: "Mayor visibilidad en redes sociales y plataformas." },
-  { icon: FileText, title: "Gestión documental", description: "Apoyo en avalúo, trámites y documentación." },
-  { icon: Wrench, title: "Acondicionamiento", description: "Reparación y detallado con nuestros contactos profesionales." },
+  { title: "Fotografía profesional", description: "Edición de imágenes para que tu auto luzca al máximo." },
+  { title: "Publicación destacada", description: "Mayor visibilidad en redes sociales y plataformas." },
+  { title: "Gestión documental", description: "Apoyo en avalúo, trámites y documentación." },
+  { title: "Acondicionamiento", description: "Reparación y detallado con nuestros contactos profesionales." },
 ]
+
+/** Lo que el vendedor debe tener a la mano: coincide con el mensaje de WhatsApp. */
+const checklist = ["Marca y modelo", "Año", "Kilometraje", "Ciudad", "Estado del auto", "Fotos (frente, lados, interior)"]
 
 export default function VendePage() {
   // Mensaje con campos vacíos para que el cliente solo los rellene y envíe.
@@ -48,79 +50,109 @@ export default function VendePage() {
       <PageHeader
         title="Vende tu auto sin complicaciones"
         description="Tú solo envías las fotos y los datos. Nosotros nos encargamos de todo lo demás hasta concretar la venta."
-      />
-
-      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-20">
-        {/* Proceso */}
-        <h2 className="text-2xl font-semibold tracking-tight text-foreground">El proceso</h2>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, i) => (
-            <div key={step.title} className="rounded-lg border border-border bg-card p-6">
-              <div className="flex items-center justify-between">
-                <span className="flex h-11 w-11 items-center justify-center rounded-md bg-secondary text-primary">
-                  <step.icon className="h-5 w-5" />
-                </span>
-                <span className="text-sm font-medium text-muted-foreground">0{i + 1}</span>
-              </div>
-              <h3 className="mt-4 text-base font-semibold text-foreground">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.description}</p>
-            </div>
-          ))}
+      >
+        <div className="animate-rise mt-9" style={{ "--delay": "180ms" } as React.CSSProperties}>
+          <Button
+            size="lg"
+            render={<a href={whatsappLink(message)} target="_blank" rel="noopener noreferrer" />}
+          >
+            Quiero vender mi auto
+            <ButtonArrow />
+          </Button>
         </div>
+      </PageHeader>
 
-        {/* Comisión */}
-        <div className="mt-16 grid gap-8 rounded-lg border border-border bg-secondary/40 p-8 md:grid-cols-2 md:items-center">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-foreground">Comisión transparente</h2>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
+      {/* Proceso: lista ordenada con número grande; el orden es la información */}
+      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-28 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <h2 className="reveal-title font-display text-5xl text-foreground md:text-6xl lg:col-span-4">El proceso</h2>
+          <ol className="grid gap-px overflow-hidden rounded-2xl bg-border/70 sm:grid-cols-2 lg:col-span-8">
+            {steps.map((step, i) => (
+              <li key={step.title} className="bg-background p-7 md:p-8">
+                <span className="font-display tabular text-5xl text-[oklch(0.36_0.006_264)]">{i + 1}</span>
+                <h3 className="mt-5 text-lg font-semibold tracking-tight text-foreground">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.description}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Comisión + qué preparar */}
+      <section className="bg-floor border-y border-border/70">
+        <div className="mx-auto grid max-w-7xl gap-14 px-4 py-24 sm:px-6 md:py-28 lg:grid-cols-12 lg:px-8">
+          <div className="lg:col-span-7">
+            <h2 className="reveal-title font-display text-5xl text-foreground md:text-6xl">Comisión transparente</h2>
+            <p className="mt-6 max-w-xl leading-relaxed text-muted-foreground md:text-lg">
               Solo cobramos cuando logramos vender tu auto. Nuestra comisión estándar es del 5% sobre el valor final del
               vehículo. Para autos de gama media y alta puede ajustarse entre 6% y 8% según el nivel de servicio.
             </p>
-            <ul className="mt-5 space-y-2.5">
-              {[
-                "Sin costos por adelantado",
-                "Pagas únicamente por venta exitosa",
-                "Asesoría inicial gratuita",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2 text-sm text-foreground">
-                  <Check className="h-4 w-4 shrink-0 text-primary" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+
+            <dl className="mt-12 grid max-w-xl grid-cols-3 gap-4 sm:gap-6 border-t border-border/70 pt-8">
+              <div>
+                <dt className="text-xs text-muted-foreground">Comisión desde</dt>
+                <dd className="font-display tabular mt-2 text-4xl text-foreground sm:text-5xl">5%</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-muted-foreground">Por adelantado</dt>
+                <dd className="font-display tabular mt-2 text-4xl text-foreground sm:text-5xl">$0</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-muted-foreground">Asesoría inicial</dt>
+                <dd className="font-display mt-2 text-4xl text-foreground sm:text-5xl">Gratis</dd>
+              </div>
+            </dl>
           </div>
-          <div className="rounded-lg border border-border bg-card p-8 text-center">
-            <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Comisión desde</p>
-            <p className="mt-2 text-5xl font-semibold tracking-tight text-foreground">5%</p>
-            <p className="mt-2 text-sm text-muted-foreground">sobre el valor final de venta</p>
-            <Button
-              size="lg"
-              className="mt-6 w-full bg-[#25D366] text-[#052E19] hover:bg-[#1faa54]"
-              render={<a href={whatsappLink(message)} target="_blank" rel="noopener noreferrer" />}
-            >
-              <MessageCircle className="h-4 w-4" />
-              Quiero vender mi auto
-            </Button>
+
+          <div className="lg:col-span-5">
+            <div className="shadow-ambient rounded-2xl bg-card p-7 md:p-8">
+              <h3 className="text-lg font-semibold tracking-tight text-foreground">Ten esto a la mano</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Al pulsar el botón se abre WhatsApp con un mensaje listo: solo rellena los datos y adjunta las fotos.
+              </p>
+              <ul className="mt-6 space-y-3">
+                {checklist.map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-sm text-foreground">
+                    <svg viewBox="0 0 16 16" className="size-4 shrink-0 text-brake" fill="none" aria-hidden="true">
+                      <path d="M3.5 8.5l3 3 6-7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Button
+                size="lg"
+                variant="whatsapp"
+                className="mt-8 w-full"
+                render={<a href={whatsappLink(message)} target="_blank" rel="noopener noreferrer" />}
+              >
+                Enviar datos por WhatsApp
+              </Button>
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* Servicios complementarios */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Servicios complementarios</h2>
-          <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
-            Servicios adicionales para potenciar la venta de tu vehículo.
-          </p>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map((service) => (
-              <div key={service.title} className="rounded-lg border border-border bg-card p-6">
-                <span className="flex h-11 w-11 items-center justify-center rounded-md bg-secondary text-primary">
-                  <service.icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-4 text-base font-semibold text-foreground">{service.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{service.description}</p>
-              </div>
-            ))}
+      {/* Servicios complementarios: lista editorial, no tarjetas */}
+      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-28 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <h2 className="reveal-title font-display text-5xl text-foreground md:text-6xl">Servicios extra</h2>
+            <p className="mt-5 max-w-xs leading-relaxed text-muted-foreground">
+              Servicios adicionales para potenciar la venta de tu vehículo.
+            </p>
           </div>
+          <ul className="border-t border-border/70 lg:col-span-8">
+            {services.map((service) => (
+              <li
+                key={service.title}
+                className="reveal-row grid gap-2 border-b border-border/70 py-6 sm:grid-cols-[1fr_1.3fr] sm:items-baseline sm:gap-8"
+              >
+                <h3 className="text-lg font-semibold tracking-tight text-foreground">{service.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{service.description}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </>

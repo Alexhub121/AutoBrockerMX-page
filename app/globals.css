@@ -48,153 +48,466 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* =============================================================================
+   AutoBroker MX — "Showroom nocturno"
+   Un auto bajo un solo reflector. Negro de piso de exhibición, gris acero para
+   el texto secundario y UN acento: el rojo de calavera de freno. El rojo se usa
+   poco y siempre con intención (acciones, el riel del proceso, estados).
+   ============================================================================= */
 :root {
   color-scheme: dark;
-  /* Paleta AutoBroker MX: negro carbón, rojo intenso y plata/cromo */
-  --background: oklch(0.16 0.004 264);
-  --foreground: oklch(0.95 0.003 264);
-  --card: oklch(0.205 0.005 264);
-  --card-foreground: oklch(0.95 0.003 264);
+
+  --background: oklch(0.145 0.004 264);
+  --foreground: oklch(0.96 0.003 264);
+  --card: oklch(0.185 0.005 264);
+  --card-foreground: oklch(0.96 0.003 264);
   --popover: oklch(0.2 0.005 264);
-  --popover-foreground: oklch(0.95 0.003 264);
-  --primary: oklch(0.57 0.235 26);
+  --popover-foreground: oklch(0.96 0.003 264);
+  --primary: oklch(0.585 0.215 27);
   --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.27 0.006 264);
-  --secondary-foreground: oklch(0.95 0.003 264);
-  --muted: oklch(0.25 0.005 264);
-  --muted-foreground: oklch(0.72 0.006 264);
-  --accent: oklch(0.3 0.008 264);
+  --secondary: oklch(0.23 0.005 264);
+  --secondary-foreground: oklch(0.96 0.003 264);
+  --muted: oklch(0.22 0.005 264);
+  --muted-foreground: oklch(0.74 0.008 264);
+  --accent: oklch(0.26 0.006 264);
   --accent-foreground: oklch(0.97 0.003 264);
-  --destructive: oklch(0.57 0.235 26);
-  --border: oklch(0.32 0.006 264);
-  --input: oklch(0.3 0.006 264);
-  --ring: oklch(0.57 0.235 26);
-  --chart-1: oklch(0.57 0.235 26);
-  --chart-2: oklch(0.7 0.18 28);
-  --chart-3: oklch(0.72 0.006 264);
+  --destructive: oklch(0.585 0.215 27);
+  --border: oklch(0.29 0.006 264);
+  --input: oklch(0.29 0.006 264);
+  --ring: oklch(0.66 0.19 27);
+  --chart-1: oklch(0.585 0.215 27);
+  --chart-2: oklch(0.7 0.17 28);
+  --chart-3: oklch(0.74 0.008 264);
   --chart-4: oklch(0.55 0.006 264);
   --chart-5: oklch(0.4 0.006 264);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.18 0.004 264);
-  --sidebar-foreground: oklch(0.95 0.003 264);
-  --sidebar-primary: oklch(0.57 0.235 26);
+  --radius: 0.75rem;
+  --sidebar: oklch(0.17 0.004 264);
+  --sidebar-foreground: oklch(0.96 0.003 264);
+  --sidebar-primary: oklch(0.585 0.215 27);
   --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.3 0.008 264);
+  --sidebar-accent: oklch(0.26 0.006 264);
   --sidebar-accent-foreground: oklch(0.97 0.003 264);
-  --sidebar-border: oklch(0.32 0.006 264);
-  --sidebar-ring: oklch(0.57 0.235 26);
+  --sidebar-border: oklch(0.29 0.006 264);
+  --sidebar-ring: oklch(0.66 0.19 27);
+
+  /* Superficie "piso de exhibición" un tono más profundo que el fondo */
+  --floor: oklch(0.115 0.003 264);
+  /* Rojo legible para texto pequeño sobre fondos oscuros (≥4.5:1) */
+  --brake: oklch(0.68 0.18 27);
+  /* Sombras teñidas del mismo azul-carbón del fondo, nunca negro puro */
+  --shadow-tint: oklch(0.06 0.01 264 / 0.55);
+
+  /* Curvas (Emil Kowalski): ease-out fuerte para UI, ease-in-out para movimiento */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-/* El sitio usa un tema oscuro fijo (marca AutoBroker MX). La clase `.dark` en
-   <html> se conserva para habilitar las variantes `dark:` de las utilidades,
-   por eso comparte la misma paleta carbón/rojo que :root. */
+/* El sitio usa un tema oscuro fijo. La clase `.dark` en <html> se conserva para
+   las variantes `dark:` de shadcn; hereda la misma paleta de :root. */
 .dark {
   color-scheme: dark;
-  --background: oklch(0.16 0.004 264);
-  --foreground: oklch(0.95 0.003 264);
-  --card: oklch(0.205 0.005 264);
-  --card-foreground: oklch(0.95 0.003 264);
-  --popover: oklch(0.2 0.005 264);
-  --popover-foreground: oklch(0.95 0.003 264);
-  --primary: oklch(0.57 0.235 26);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.27 0.006 264);
-  --secondary-foreground: oklch(0.95 0.003 264);
-  --muted: oklch(0.25 0.005 264);
-  --muted-foreground: oklch(0.72 0.006 264);
-  --accent: oklch(0.3 0.008 264);
-  --accent-foreground: oklch(0.97 0.003 264);
-  --destructive: oklch(0.57 0.235 26);
-  --border: oklch(0.32 0.006 264);
-  --input: oklch(0.3 0.006 264);
-  --ring: oklch(0.57 0.235 26);
-  --chart-1: oklch(0.57 0.235 26);
-  --chart-2: oklch(0.7 0.18 28);
-  --chart-3: oklch(0.72 0.006 264);
-  --chart-4: oklch(0.55 0.006 264);
-  --chart-5: oklch(0.4 0.006 264);
-  --sidebar: oklch(0.18 0.004 264);
-  --sidebar-foreground: oklch(0.95 0.003 264);
-  --sidebar-primary: oklch(0.57 0.235 26);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.3 0.008 264);
-  --sidebar-accent-foreground: oklch(0.97 0.003 264);
-  --sidebar-border: oklch(0.32 0.006 264);
-  --sidebar-ring: oklch(0.57 0.235 26);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv11";
+    caret-color: var(--brake);
+  }
+
+  /* Superficies del navegador: también llevan la marca */
+  ::selection {
+    background: oklch(0.585 0.215 27 / 0.85);
+    color: oklch(0.99 0 0);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+  html {
+    scrollbar-color: oklch(0.34 0.006 264) var(--background);
+    scrollbar-width: thin;
+  }
+  a {
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
 @layer utilities {
-  /* Tipografía de marca tipo logo: condensada, pesada e itálica */
+  /* Voz display: Saira Condensed, en mayúsculas y compacta */
+  .font-display {
+    font-family: var(--font-brand), "Geist Fallback", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+    line-height: 0.9;
+  }
+
+  /* Tipografía del wordmark (logo): condensada, pesada e itálica */
   .font-brand {
-    font-family: var(--font-brand), 'Geist Fallback', sans-serif;
+    font-family: var(--font-brand), "Geist Fallback", sans-serif;
     font-style: italic;
     letter-spacing: 0.01em;
   }
 
-  /* Texto con acabado cromado/metálico (plata) */
+  /* Acabado cromado: SOLO para el wordmark del logo (es lettering de marca) */
   .text-chrome {
-    background: linear-gradient(
-      180deg,
-      oklch(0.98 0 0) 0%,
-      oklch(0.8 0.004 264) 42%,
-      oklch(0.55 0.006 264) 52%,
-      oklch(0.92 0.003 264) 100%
-    );
+    background: linear-gradient(180deg, oklch(0.98 0 0) 0%, oklch(0.8 0.004 264) 42%, oklch(0.55 0.006 264) 52%, oklch(0.92 0.003 264) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-
-  /* Texto rojo con brillo metálico */
   .text-chrome-red {
-    background: linear-gradient(
-      180deg,
-      oklch(0.72 0.2 28) 0%,
-      oklch(0.55 0.24 26) 50%,
-      oklch(0.42 0.2 26) 100%
-    );
+    background: linear-gradient(180deg, oklch(0.72 0.2 28) 0%, oklch(0.55 0.24 26) 50%, oklch(0.42 0.2 26) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* Fondo de fibra de carbono con patrón hexagonal sutil */
-  .bg-carbon {
-    background-color: oklch(0.16 0.004 264);
-    background-image:
-      radial-gradient(circle at 50% 0%, oklch(0.24 0.02 26 / 0.25) 0%, transparent 55%),
-      repeating-conic-gradient(
-        from 30deg,
-        oklch(0.2 0.004 264) 0deg 60deg,
-        oklch(0.17 0.004 264) 60deg 120deg
-      );
-    background-size:
-      100% 100%,
-      28px 48px;
+  .text-brake {
+    color: var(--brake);
   }
-
-  /* Línea/acento rojo brillante */
-  .glow-red {
-    box-shadow: 0 0 24px -4px oklch(0.57 0.235 26 / 0.55);
-  }
-
-  /* Texto rojo sobre fondos oscuros.
-     --primary (oklch 0.57) da solo 3.6:1 sobre --card y NO sirve para texto
-     pequeño (WCAG AA pide 4.5:1). Esta variante da 4.66:1 sin romper los
-     botones, que conservan --primary con texto blanco (4.98:1). */
   .text-primary-readable {
-    color: oklch(0.63 0.19 26);
+    color: var(--brake);
   }
+  .bg-floor {
+    background-color: var(--floor);
+  }
+
+  /* Números de datos (precio, km, año) alineados */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Luz de reflector cenital: la única "textura", sale del mundo del showroom */
+  .spotlight {
+    background-image: radial-gradient(60% 55% at 50% 0%, oklch(0.32 0.006 264 / 0.55) 0%, transparent 70%);
+  }
+
+  /* Sombra ambiental teñida, con desplazamiento y desenfoque suave */
+  .shadow-ambient {
+    box-shadow: 0 1px 0 0 oklch(1 0 0 / 0.04) inset, 0 24px 48px -24px var(--shadow-tint);
+  }
+
+  /* Presión táctil (Emil): respuesta inmediata al pulsar */
+  .pressable {
+    transition: transform 160ms var(--ease-out);
+  }
+  .pressable:active {
+    transform: scale(0.97);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Movimiento
+   Un solo momento de autor: "se encienden las luces" en el hero. El resto del
+   sitio es sobrio y rápido. Todo parte de un estado ya visible si no hay JS.
+   ----------------------------------------------------------------------------- */
+
+/* Hero: el auto aparece como si encendieran el reflector */
+@keyframes lights-on {
+  0% {
+    opacity: 0;
+    filter: brightness(0.2) blur(6px);
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1) blur(0);
+    transform: scale(1);
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+.animate-lights-on {
+  animation: lights-on 1400ms var(--ease-out) both;
+}
+.animate-rise {
+  animation: rise 700ms var(--ease-out) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+/* Riel del proceso: la línea roja se dibuja cuando la sección entra en vista */
+.rail-line {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1100ms var(--ease-in-out);
+}
+[data-inview="true"] .rail-line {
+  transform: scaleX(1);
+}
+.rail-step {
+  opacity: 0.35;
+  transition: opacity 500ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 180ms + 200ms);
+}
+.rail-dot {
+  background: var(--border);
+  transition: background-color 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 180ms + 200ms);
+}
+[data-inview="true"] .rail-step {
+  opacity: 1;
+}
+[data-inview="true"] .rail-dot {
+  background: var(--primary);
+  box-shadow: 0 0 0 4px oklch(0.585 0.215 27 / 0.18);
+}
+@media (max-width: 767px) {
+  .rail-line {
+    transform: scaleY(0);
+    transform-origin: center top;
+  }
+  [data-inview="true"] .rail-line {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-lights-on,
+  .animate-rise {
+    animation: fade-only 300ms ease both;
+  }
+  .rail-line,
+  .rail-step,
+  .rail-dot {
+    transition-duration: 0ms;
+    transition-delay: 0ms;
+  }
+}
+@keyframes fade-only {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =============================================================================
+   Intro de primera visita: "encendido del showroom"
+   Una línea roja se enciende, aparece la marca y la cortina se abre como una
+   puerta de cochera. Solo una vez por sesión (lo decide un script en <head>
+   antes del primer pintado). Sin JS o con movimiento reducido no se muestra.
+   ============================================================================= */
+.intro {
+  display: none;
+}
+html[data-intro="play"] .intro {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+  animation: intro-done 0ms linear 2300ms forwards;
+}
+.intro-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  background: var(--floor);
+}
+.intro-top {
+  top: 0;
+  animation: intro-open-up 850ms var(--ease-in-out) 1350ms forwards;
+}
+.intro-bottom {
+  bottom: 0;
+  animation: intro-open-down 850ms var(--ease-in-out) 1350ms forwards;
+}
+.intro-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  animation: intro-content-out 400ms var(--ease-out) 1150ms forwards;
+}
+.intro-mark {
+  clip-path: inset(0 50% 0 50%);
+  animation: intro-mark-in 700ms var(--ease-out) 450ms forwards;
+}
+.intro-line {
+  width: min(70vw, 520px);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary) 20%, oklch(0.8 0.15 27) 50%, var(--primary) 80%, transparent);
+  box-shadow: 0 0 24px 2px oklch(0.585 0.215 27 / 0.6);
+  transform: scaleX(0);
+  animation: intro-line-in 650ms var(--ease-out) 120ms forwards;
+}
+@keyframes intro-line-in {
+  to { transform: scaleX(1); }
+}
+@keyframes intro-mark-in {
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes intro-content-out {
+  to { opacity: 0; transform: scale(1.04); filter: blur(6px); }
+}
+@keyframes intro-open-up {
+  to { transform: translateY(-100%); }
+}
+@keyframes intro-open-down {
+  to { transform: translateY(100%); }
+}
+@keyframes intro-done {
+  to { visibility: hidden; }
+}
+/* Mientras corre el intro, la entrada del hero espera a que se abra la cortina */
+html[data-intro="play"] .hero :is(.animate-rise, .animate-lights-on) {
+  animation-delay: calc(var(--delay, 0ms) + 1500ms);
+}
+
+/* =============================================================================
+   Efectos ligados al scroll (CSS nativo: animation-timeline)
+   Solo en navegadores que lo soportan; en los demás todo se ve estático y
+   completo. Nunca ocultan contenido si el efecto no corre.
+   ============================================================================= */
+
+/* Barra de progreso de lectura bajo la cabecera */
+.scroll-progress {
+  display: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      display: block;
+      transform-origin: left center;
+      animation: progress-grow linear both;
+      animation-timeline: scroll(root);
+    }
+
+    /* Hero: el auto se acerca y baja lento; el texto se va con desenfoque */
+    .hero-car {
+      animation: hero-car-drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+    .hero-copy {
+      animation: hero-copy-out linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 75vh;
+    }
+
+    /* Títulos: aparecen desde una máscara, como saliendo del piso */
+    .reveal-title {
+      animation: reveal-title linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 30%;
+    }
+
+    /* Tarjetas de autos: suben y la foto se "abre" desde un recorte */
+    .reveal-card {
+      animation: reveal-card linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+    .reveal-card .reveal-photo {
+      animation: reveal-photo linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+
+    /* Filas de listas: entran desde la izquierda, cada una a su tiempo */
+    .reveal-row {
+      animation: reveal-row linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+
+    /* Banda de marcas que se desliza con el scroll */
+    .band-track {
+      animation: band-slide linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    .band-track-reverse {
+      animation: band-slide-reverse linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    /* Cierre: el auto de fondo se aleja mientras la sección entra */
+    .cta-car {
+      animation: cta-car-zoom linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 60%;
+    }
+  }
+}
+
+@keyframes progress-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes hero-car-drift {
+  to { transform: translateY(14%) scale(1.08); opacity: 0.55; }
+}
+@keyframes hero-copy-out {
+  to { transform: translateY(-80px); opacity: 0; filter: blur(8px); }
+}
+@keyframes reveal-title {
+  from { clip-path: inset(0 0 100% 0); transform: translateY(40%); }
+  to { clip-path: inset(0 0 -10% 0); transform: translateY(0); }
+}
+@keyframes reveal-card {
+  from { opacity: 0; transform: translateY(80px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes reveal-photo {
+  from { clip-path: inset(10% 8% 10% 8% round 1rem); }
+  to { clip-path: inset(0 0 0 0 round 1rem); }
+}
+@keyframes reveal-row {
+  from { opacity: 0; transform: translateX(-28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes band-slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-35%); }
+}
+@keyframes band-slide-reverse {
+  from { transform: translateX(-35%); }
+  to { transform: translateX(0); }
+}
+@keyframes cta-car-zoom {
+  from { transform: scale(1.18); opacity: 0; }
+  to { transform: scale(1); opacity: 0.35; }
 }

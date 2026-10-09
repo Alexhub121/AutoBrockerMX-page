@@ -1,58 +1,31 @@
 import Link from "next/link"
-import { Mail, MapPin, Phone } from "lucide-react"
 import { InstagramIcon, FacebookIcon, TikTokIcon } from "@/components/social-icons"
 import { Logo } from "@/components/logo"
 import { COMPANY, NAV_LINKS, SOCIAL_LINKS, WHATSAPP_DISPLAY } from "@/lib/constants"
 import { whatsappLink } from "@/lib/utils"
 
+const socials = [
+  { href: SOCIAL_LINKS.instagram, label: "Instagram", Icon: InstagramIcon },
+  { href: SOCIAL_LINKS.facebook, label: "Facebook", Icon: FacebookIcon },
+  { href: SOCIAL_LINKS.tiktok, label: "TikTok", Icon: TikTokIcon },
+]
+
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid gap-10 md:grid-cols-4">
-          <div className="md:col-span-2">
+    <footer className="bg-floor border-t border-border/70">
+      <div className="mx-auto max-w-7xl px-4 pt-16 pb-10 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
+          <div>
             <Logo />
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">{COMPANY.description}</p>
-            <div className="mt-5 flex gap-3">
-              <a
-                href={SOCIAL_LINKS.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-              >
-                <InstagramIcon className="h-4 w-4" />
-              </a>
-              <a
-                href={SOCIAL_LINKS.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-              >
-                <FacebookIcon className="h-4 w-4" />
-              </a>
-              <a
-                href={SOCIAL_LINKS.tiktok}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="TikTok"
-                className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-              >
-                <TikTokIcon className="h-4 w-4" />
-              </a>
-            </div>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted-foreground">{COMPANY.description}</p>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-foreground">Navegación</h3>
+            <h2 className="text-xs font-medium text-muted-foreground">Sitio</h2>
             <ul className="mt-4 space-y-2.5">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
+                  <Link href={link.href} className="text-sm text-foreground/90 transition-colors hover:text-foreground">
                     {link.label}
                   </Link>
                 </li>
@@ -61,42 +34,51 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-foreground">Contacto</h3>
-            <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+            <h2 className="text-xs font-medium text-muted-foreground">Contacto</h2>
+            <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <a
                   href={whatsappLink("Hola AutoBroker MX, quiero más información.")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 transition-colors hover:text-foreground"
+                  className="tabular text-foreground/90 transition-colors hover:text-foreground"
                 >
-                  <Phone className="h-4 w-4 shrink-0" />
-                  {WHATSAPP_DISPLAY}
+                  WhatsApp {WHATSAPP_DISPLAY}
                 </a>
               </li>
-              <li className="flex items-start gap-2.5">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0" />
-                {/* min-w-0 + break-words: el email es una palabra larga sin espacios;
-                    sin esto desborda su columna y genera scroll horizontal en toda la web. */}
+              <li>
+                {/* break-words: el correo es una sola palabra larga y no debe desbordar en móvil */}
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="min-w-0 break-words transition-colors hover:text-foreground"
+                  className="break-words text-foreground/90 transition-colors hover:text-foreground"
                 >
                   {COMPANY.email}
                 </a>
               </li>
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>{COMPANY.coverage}</span>
-              </li>
+              <li className="text-muted-foreground">{COMPANY.coverage}</li>
             </ul>
+            <div className="mt-6 flex gap-2">
+              {socials.map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="pressable flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-[oklch(0.42_0.006_264)] hover:text-foreground"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-border pt-6">
-          <p className="text-xs text-muted-foreground">
+        <div className="mt-16 flex flex-col gap-2 border-t border-border/70 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p>
             &copy; {new Date().getFullYear()} {COMPANY.name}. Todos los derechos reservados.
           </p>
+          <p>{COMPANY.city}</p>
         </div>
       </div>
     </footer>

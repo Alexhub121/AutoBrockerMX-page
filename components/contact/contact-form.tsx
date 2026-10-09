@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -32,13 +31,13 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-lg border border-border bg-card p-6">
-      <h2 className="text-lg font-semibold text-foreground">Envíanos un mensaje</h2>
+    <form onSubmit={handleSubmit} className="shadow-ambient rounded-2xl bg-card p-7 md:p-9">
+      <h2 className="text-xl font-semibold tracking-tight text-foreground">Envíanos un mensaje</h2>
       <p className="mt-1 text-sm text-muted-foreground">
         Completa el formulario y continúa la conversación por WhatsApp.
       </p>
 
-      <div className="mt-5 space-y-4">
+      <div className="mt-7 space-y-5">
         <div className="space-y-2">
           <Label htmlFor="name">Nombre</Label>
           <Input
@@ -72,10 +71,10 @@ export function ContactForm() {
         </div>
         <Button
           size="lg"
-          className="w-full bg-[#25D366] text-[#052E19] hover:bg-[#1faa54]"
+          variant="whatsapp"
+          className="w-full"
           render={<a href={href} target="_blank" rel="noopener noreferrer" />}
         >
-          <MessageCircle className="h-4 w-4" />
           Enviar por WhatsApp
         </Button>
       </div>

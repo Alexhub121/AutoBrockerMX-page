@@ -7,6 +7,7 @@ import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { COMPANY } from "@/lib/constants";
 import { SITE_URL, OG_IMAGE, businessJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
+import { Intro, introScript } from "@/components/intro";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -91,7 +92,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "dark",
-  themeColor: "#121212",
+  themeColor: "#0d0e10",
 };
 
 export default function RootLayout({
@@ -102,9 +103,15 @@ export default function RootLayout({
   return (
     <html
       lang="es"
+      // El script del intro agrega data-intro antes de hidratar
+      suppressHydrationWarning
       className={`dark bg-background ${geistSans.variable} ${geistMono.variable} ${sairaCondensed.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
+      </head>
       <body className="font-sans antialiased">
+        <Intro />
         {/* Accesibilidad: permite saltar la navegación con el teclado (Tab). */}
         <a
           href="#contenido"

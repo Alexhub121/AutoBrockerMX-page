@@ -3,17 +3,25 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Gauge, Calendar, Fuel, ChevronLeft, ChevronRight } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import type { Car } from "@/lib/types"
 import { formatPrice, formatMileage } from "@/lib/utils"
 import { cn } from "@/lib/utils"
 
-export function CarCard({ car }: { car: Car }) {
+type CarCardProps = {
+  car: Car
+  /** Variante grande para el auto principal de la portada. */
+  size?: "default" | "large"
+  /** Carga prioritaria de la foto (solo para tarjetas visibles al cargar). */
+  priority?: boolean
+}
+
+export function CarCard({ car, size = "default", priority = false }: CarCardProps) {
   // Índice de la foto que se está mostrando en el carrusel de la tarjeta.
   const [index, setIndex] = useState(0)
   const images = car.images.length > 0 ? car.images : ["/placeholder.svg"]
   const hasMultiple = images.length > 1
+  const large = size === "large"
 
   // Avanza/retrocede la foto. preventDefault evita que el clic abra el detalle.
   function go(e: React.MouseEvent, dir: 1 | -1) {
@@ -22,53 +30,65 @@ export function CarCard({ car }: { car: Car }) {
     setIndex((prev) => (prev + dir + images.length) % images.length)
   }
 
+  const arrowClass =
+    "absolute top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur-sm transition-[opacity,background-color] duration-200 hover:bg-background [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 focus-visible:opacity-100"
+
   return (
     <Link
       href={`/catalogo/${car.id}`}
-      className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+      className="group flex h-full w-full flex-col rounded-2xl focus-visible:outline-offset-4"
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+      <div
+        className={cn(
+          "reveal-photo relative overflow-hidden rounded-2xl bg-card",
+          large ? "aspect-[4/3] lg:aspect-auto lg:min-h-0 lg:flex-1" : "aspect-[4/3]",
+        )}
+      >
         <Image
           src={images[index] || "/placeholder.svg"}
           alt={`${car.brand} ${car.model} ${car.year}`}
           fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          priority={priority}
+          sizes={large ? "(max-width: 1024px) 100vw, 58vw" : "(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"}
+          className={cn(
+            "object-cover transition-[transform,filter] duration-700 ease-[var(--ease-out)] [@media(hover:hover)]:group-hover:scale-[1.035]",
+            car.sold && "grayscale-[0.6] brightness-75",
+          )}
         />
 
-        <Badge variant="secondary" className="absolute left-3 top-3">
+        {/* Velo inferior para que los indicadores sean legibles sobre fotos claras */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-black/40 to-transparent"
+          aria-hidden="true"
+        />
+
+        <span className="absolute left-3 top-3 rounded-full bg-background/75 px-2.5 py-1 text-xs font-medium text-foreground backdrop-blur-sm">
           {car.bodyType}
-        </Badge>
-        {car.sold && <Badge className="absolute right-3 top-3 bg-destructive text-white">Vendido</Badge>}
+        </span>
+        {car.sold && (
+          <span className="absolute right-3 top-3 rounded-full bg-primary px-2.5 py-1 text-xs font-semibold text-primary-foreground">
+            Vendido
+          </span>
+        )}
 
         {/* Controles del carrusel: solo aparecen si el auto tiene más de una foto */}
         {hasMultiple && (
           <>
-            <button
-              type="button"
-              onClick={(e) => go(e, -1)}
-              aria-label="Foto anterior"
-              className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-background/70 p-1.5 text-foreground opacity-100 backdrop-blur transition-opacity hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
-            >
+            <button type="button" onClick={(e) => go(e, -1)} aria-label="Foto anterior" className={cn(arrowClass, "left-3")}>
               <ChevronLeft className="h-4 w-4" />
             </button>
-            <button
-              type="button"
-              onClick={(e) => go(e, 1)}
-              aria-label="Foto siguiente"
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-background/70 p-1.5 text-foreground opacity-100 backdrop-blur transition-opacity hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
-            >
+            <button type="button" onClick={(e) => go(e, 1)} aria-label="Foto siguiente" className={cn(arrowClass, "right-3")}>
               <ChevronRight className="h-4 w-4" />
             </button>
 
-            {/* Puntos indicadores de la cantidad de fotos */}
-            <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
+            {/* Indicadores: el activo se alarga en vez de solo cambiar de color */}
+            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1" aria-hidden="true">
               {images.map((img, i) => (
                 <span
                   key={img + i}
                   className={cn(
-                    "h-1.5 w-1.5 rounded-full transition-colors",
-                    i === index ? "bg-primary" : "bg-background/60",
+                    "h-1 rounded-full transition-[width,background-color] duration-300 ease-[var(--ease-out)]",
+                    i === index ? "w-4 bg-white" : "w-1 bg-white/50",
                   )}
                 />
               ))}
@@ -77,32 +97,30 @@ export function CarCard({ car }: { car: Car }) {
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-4">
-        <h3 className="text-base font-semibold leading-tight text-foreground">
-          {car.brand} {car.model}
-        </h3>
-        <p className="mt-1 text-sm text-muted-foreground">{car.location}</p>
-
-        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
-          <span className="flex items-center gap-1.5">
-            <Calendar className="h-3.5 w-3.5" />
-            {car.year}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Gauge className="h-3.5 w-3.5" />
-            {formatMileage(car.mileage)}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Fuel className="h-3.5 w-3.5" />
-            {car.fuel}
-          </span>
+      <div className={cn("flex items-baseline justify-between gap-4 px-1", large ? "pt-5" : "pt-4")}>
+        <div className="min-w-0">
+          <h3
+            className={cn(
+              "truncate font-semibold tracking-tight text-foreground",
+              large ? "text-xl md:text-2xl" : "text-base",
+            )}
+          >
+            {car.brand} {car.model}
+          </h3>
         </div>
-
-        <div className="mt-4 flex items-end justify-between border-t border-border pt-4">
-          <span className="text-lg font-semibold text-foreground">{formatPrice(car.price)}</span>
-          <span className="text-sm font-medium text-primary-readable group-hover:underline">Ver detalle</span>
-        </div>
+        <p
+          className={cn(
+            "tabular shrink-0 font-semibold text-foreground",
+            large ? "text-xl md:text-2xl" : "text-base",
+            car.sold && "text-muted-foreground line-through decoration-1",
+          )}
+        >
+          {formatPrice(car.price)}
+        </p>
       </div>
+      <p className="tabular mt-1 truncate px-1 text-sm text-muted-foreground">
+        {car.year} · {formatMileage(car.mileage)} · {car.transmission} · {car.location}
+      </p>
     </Link>
   )
 }

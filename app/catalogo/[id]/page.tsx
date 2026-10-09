@@ -1,10 +1,8 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ChevronLeft, ChevronRight, Check, MessageCircle, Gauge, Calendar, Fuel, Settings2, Palette, MapPin } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
 import { CarGallery } from "@/components/catalog/car-gallery"
 import { getAllCars, getCarById } from "@/lib/cars"
 import { formatPrice, formatMileage, whatsappLink } from "@/lib/utils"
@@ -75,16 +73,16 @@ export default async function CarDetailPage({
   const message = `Hola AutoBroker MX, me interesa el ${title} que vi en su sitio web (${formatPrice(car.price)}). ¿Sigue disponible?`
 
   const specs = [
-    { icon: Calendar, label: "Año", value: String(car.year) },
-    { icon: Gauge, label: "Kilometraje", value: formatMileage(car.mileage) },
-    { icon: Settings2, label: "Transmisión", value: car.transmission },
-    { icon: Fuel, label: "Combustible", value: car.fuel },
-    { icon: Palette, label: "Color", value: car.color },
-    { icon: MapPin, label: "Ubicación", value: car.location },
+    { label: "Año", value: String(car.year) },
+    { label: "Kilometraje", value: formatMileage(car.mileage) },
+    { label: "Transmisión", value: car.transmission },
+    { label: "Combustible", value: car.fuel },
+    { label: "Color", value: car.color },
+    { label: "Ubicación", value: car.location },
   ]
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 md:py-12">
+    <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-12 lg:px-8">
       {/* Datos estructurados: precio, kilometraje y disponibilidad para Google */}
       <JsonLd data={carJsonLd(car)} />
       <JsonLd data={carBreadcrumbJsonLd(car)} />
@@ -97,40 +95,45 @@ export default async function CarDetailPage({
         Volver al catálogo
       </Link>
 
-      <div className="mt-6 grid gap-8 lg:grid-cols-[1.5fr_1fr]">
-        <div>
+      <div className="mt-6 grid gap-10 lg:grid-cols-[1.55fr_1fr] lg:gap-12">
+        <div className="min-w-0">
           <CarGallery images={images} alt={title} />
 
-          <div className="mt-8">
-            <h2 className="text-lg font-semibold text-foreground">Descripción</h2>
-            <p className="mt-3 leading-relaxed text-muted-foreground">{car.description}</p>
-          </div>
-
-          <div className="mt-8">
-            <h2 className="text-lg font-semibold text-foreground">Equipamiento</h2>
-            <ul className="mt-3 grid gap-2 sm:grid-cols-2">
-              {car.features.map((feature) => (
-                <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 shrink-0 text-primary" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-14 grid gap-12 md:grid-cols-[1fr_1fr]">
+            <div>
+              <h2 className="text-sm font-medium text-muted-foreground">Descripción</h2>
+              <p className="mt-4 leading-relaxed text-foreground/90">{car.description}</p>
+            </div>
+            <div>
+              <h2 className="text-sm font-medium text-muted-foreground">Equipamiento</h2>
+              <ul className="mt-4 border-t border-border/70">
+                {car.features.map((feature) => (
+                  <li key={feature} className="border-b border-border/70 py-2.5 text-sm text-foreground/90">
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
         {/* Panel de compra */}
-        <div className="lg:sticky lg:top-20 lg:self-start">
-          <div className="rounded-lg border border-border bg-card p-6">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="secondary">{car.bodyType}</Badge>
-              {car.sold && <Badge className="bg-destructive text-white">Vendido</Badge>}
+        <div className="lg:sticky lg:top-24 lg:self-start">
+          <div className="shadow-ambient rounded-2xl bg-card p-6 md:p-8">
+            <div className="flex flex-wrap items-center gap-2 text-xs">
+              <span className="rounded-full bg-secondary px-2.5 py-1 font-medium text-foreground">{car.bodyType}</span>
+              {car.sold && (
+                <span className="rounded-full bg-primary px-2.5 py-1 font-semibold text-primary-foreground">Vendido</span>
+              )}
             </div>
-            <h1 className="mt-3 text-2xl font-semibold tracking-tight text-foreground">{title}</h1>
-            <p className="mt-2 text-3xl font-semibold text-foreground">{formatPrice(car.price)}</p>
+            <h1 className="font-display mt-5 text-4xl text-foreground md:text-5xl">
+              {car.brand} {car.model}
+              <span className="tabular mt-1 block text-[oklch(0.62_0.006_264)]">{car.year}</span>
+            </h1>
+            <p className="tabular mt-5 text-3xl font-semibold tracking-tight text-foreground">{formatPrice(car.price)}</p>
 
             {car.sold ? (
-              <div className="mt-6 space-y-3">
+              <div className="mt-7 space-y-3">
                 <Button size="lg" disabled className="w-full">
                   Este auto ya fue vendido
                 </Button>
@@ -142,11 +145,11 @@ export default async function CarDetailPage({
               <>
                 <Button
                   size="lg"
-                  className="mt-6 w-full bg-[#25D366] text-[#052E19] hover:bg-[#1faa54]"
+                  variant="whatsapp"
+                  className="mt-7 w-full"
                   render={<a href={whatsappLink(message)} target="_blank" rel="noopener noreferrer" />}
                 >
-                  <MessageCircle className="h-4 w-4" />
-                  Contactar por WhatsApp
+                  Me interesa este auto
                 </Button>
                 <p className="mt-3 text-center text-xs text-muted-foreground">
                   Te responderemos lo antes posible para coordinar una cita.
@@ -154,17 +157,15 @@ export default async function CarDetailPage({
               </>
             )}
 
-            <Separator className="my-6" />
-
-            <h2 className="text-sm font-semibold text-foreground">Ficha técnica</h2>
-            <dl className="mt-4 space-y-3">
+            <h2 className="mt-8 border-t border-border/70 pt-6 text-sm font-medium text-muted-foreground">Ficha técnica</h2>
+            <dl className="mt-3">
               {specs.map((spec) => (
-                <div key={spec.label} className="flex items-center justify-between text-sm">
-                  <dt className="flex items-center gap-2 text-muted-foreground">
-                    <spec.icon className="h-4 w-4" />
-                    {spec.label}
-                  </dt>
-                  <dd className="font-medium text-foreground">{spec.value}</dd>
+                <div
+                  key={spec.label}
+                  className="flex items-baseline justify-between gap-4 border-b border-border/50 py-3 text-sm last:border-b-0"
+                >
+                  <dt className="text-muted-foreground">{spec.label}</dt>
+                  <dd className="tabular text-right font-medium text-foreground">{spec.value}</dd>
                 </div>
               ))}
             </dl>
@@ -176,12 +177,12 @@ export default async function CarDetailPage({
       {(prevCar || nextCar) && (
         <nav
           aria-label="Otros vehículos del catálogo"
-          className="mt-12 flex items-stretch justify-between gap-4 border-t border-border pt-6"
+          className="mt-20 flex items-stretch justify-between gap-4 border-t border-border/70 pt-8"
         >
           {prevCar ? (
             <Link
               href={`/catalogo/${prevCar.id}`}
-              className="group flex min-w-0 flex-1 items-center gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:bg-secondary/60"
+              className="group flex min-w-0 flex-1 items-center gap-3 rounded-2xl bg-card p-5 transition-colors hover:bg-secondary"
             >
               <ChevronLeft className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" />
               <span className="min-w-0">

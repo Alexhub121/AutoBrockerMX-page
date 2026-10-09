@@ -1,87 +1,96 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button, ButtonArrow } from "@/components/ui/button"
 import { whatsappLink } from "@/lib/utils"
+import { HERO_IMAGE } from "@/lib/constants"
+
+const facts = ["Comisión solo si vendemos", "Sin costos por adelantado", "Servicio en toda la República"]
 
 export function Hero() {
   return (
-    <section className="bg-carbon relative overflow-hidden border-b border-border">
-      {/* Acentos rojos difusos */}
-      <div
-        className="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-primary/20 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -right-16 bottom-0 h-64 w-64 rounded-full bg-primary/15 blur-3xl"
-        aria-hidden="true"
-      />
+    <section className="hero bg-floor relative -mt-16 flex flex-col overflow-hidden md:block md:min-h-[min(100dvh,980px)]">
+      {/* El auto bajo el reflector. En móvil va debajo del texto; en escritorio
+          llena la sección y el texto vive en la zona oscura superior. */}
+      <div className="hero-car relative order-2 aspect-[16/10] md:absolute md:top-[30%] md:right-0 md:bottom-0 md:left-[30%] md:aspect-auto">
+        <Image
+          src={HERO_IMAGE.src}
+          alt={HERO_IMAGE.alt}
+          fill
+          priority
+          sizes="100vw"
+          className="animate-lights-on object-cover object-[50%_75%] md:object-[60%_85%]"
+        />
+        {/* Fundidos al color del piso para que la foto no tenga bordes duros */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-linear-to-b from-[var(--floor)] to-transparent"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/4 bg-linear-to-r from-[var(--floor)] to-transparent md:block"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-linear-to-t from-[var(--floor)] to-transparent"
+          aria-hidden="true"
+        />
+      </div>
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24">
-        <div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-primary">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            Intermediación automotriz profesional
-          </span>
-          <h1 className="mt-5 text-balance text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl">
-            Vende tu auto de forma <span className="text-chrome-red">rápida</span>, segura y profesional
-          </h1>
-          <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted-foreground">
-            En AutoBroker MX nos encargamos de todo: publicamos, promocionamos y filtramos compradores por ti. Tú solo
-            envías las fotos y los datos de tu vehículo.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button size="lg" render={<Link href="/catalogo" />}>
-              Ver catálogo
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              render={
-                <a
-                  href={whatsappLink("Hola AutoBroker MX, quiero vender mi auto. ¿Me pueden asesorar?")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                />
-              }
-            >
-              Vende tu auto
-            </Button>
-          </div>
-        </div>
-
-        {/* Showcase del logo real con resplandor y reflejo */}
-        <div className="relative">
-          <div
-            className="pointer-events-none absolute inset-0 scale-90 rounded-full bg-primary/25 blur-3xl"
-            aria-hidden="true"
-          />
-          <div className="relative overflow-hidden rounded-xl border border-border bg-black/40 shadow-2xl glow-red">
-            <Image
-              src="/brand/autobroker-logo.jpeg"
-              alt="Logo de AutoBroker MX"
-              width={1536}
-              height={1024}
-              priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="h-auto w-full"
-            />
-          </div>
-          {/* Reflejo sutil */}
-          <div
-            className="pointer-events-none mx-auto mt-1 h-16 w-[88%] scale-y-[-1] overflow-hidden opacity-20 [mask-image:linear-gradient(to_bottom,black,transparent)]"
-            aria-hidden="true"
+      <div className="hero-copy relative order-1 mx-auto flex w-full max-w-7xl flex-col px-4 pt-28 sm:px-6 md:min-h-[min(100dvh,980px)] md:pt-36 lg:px-8">
+        <h1 className="font-display text-[clamp(3.25rem,9vw,6rem)] text-foreground">
+          <span className="animate-rise block">Vende tu auto.</span>
+          <span
+            className="animate-rise block text-[oklch(0.62_0.006_264)]"
+            style={{ "--delay": "120ms" } as React.CSSProperties}
           >
-            <Image
-              src="/brand/autobroker-logo.jpeg"
-              alt=""
-              width={1536}
-              height={1024}
-              className="h-auto w-full"
-            />
-          </div>
+            Nosotros hacemos el resto.
+          </span>
+        </h1>
+
+        <p
+          className="animate-rise mt-7 max-w-md leading-relaxed text-muted-foreground md:text-lg"
+          style={{ "--delay": "240ms" } as React.CSSProperties}
+        >
+          Publicamos, promocionamos y filtramos compradores por ti. Tú solo nos mandas las fotos y los datos de tu
+          vehículo por WhatsApp.
+        </p>
+
+        <div
+          className="animate-rise mt-9 flex flex-wrap items-center gap-x-7 gap-y-4"
+          style={{ "--delay": "340ms" } as React.CSSProperties}
+        >
+          <Button
+            size="lg"
+            render={
+              <a
+                href={whatsappLink("Hola AutoBroker MX, quiero vender mi auto. ¿Me pueden asesorar?")}
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
+          >
+            Quiero vender mi auto
+            <ButtonArrow />
+          </Button>
+          <Link
+            href="/catalogo"
+            className="text-sm font-medium text-foreground underline decoration-border underline-offset-[0.4em] transition-[text-decoration-color] duration-200 hover:decoration-primary"
+          >
+            Ver autos en venta
+          </Link>
         </div>
+
+        {/* Hechos del servicio, al ras del piso */}
+        <ul
+          className="animate-rise mt-auto hidden flex-wrap gap-x-8 gap-y-2 border-t border-white/10 py-6 text-sm text-muted-foreground md:flex"
+          style={{ "--delay": "700ms" } as React.CSSProperties}
+        >
+          {facts.map((fact) => (
+            <li key={fact} className="flex items-center gap-2.5">
+              <span className="h-1 w-1 rounded-full bg-primary" aria-hidden="true" />
+              {fact}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )

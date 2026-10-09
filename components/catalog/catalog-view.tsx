@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select"
 import { CarCard } from "@/components/car-card"
 import type { Car } from "@/lib/types"
+import { whatsappLink } from "@/lib/utils"
 
 type SortOption = "recent" | "price-asc" | "price-desc" | "year-desc"
 
@@ -129,12 +130,12 @@ export function CatalogView({ cars, brands }: { cars: Car[]; brands: string[] })
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
+    <div className="grid gap-10 lg:grid-cols-[264px_1fr] lg:gap-12">
       {/* Filtros */}
-      <div className="lg:sticky lg:top-20 lg:self-start">
-        <div className="rounded-lg border border-border bg-card p-5">
+      <div className="lg:sticky lg:top-24 lg:self-start">
+        <div className="rounded-2xl bg-card p-5 md:p-6">
           <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
-            <SlidersHorizontal className="h-4 w-4" />
+            <SlidersHorizontal className="h-4 w-4 text-muted-foreground" strokeWidth={1.75} />
             Filtros
           </div>
 
@@ -142,13 +143,13 @@ export function CatalogView({ cars, brands }: { cars: Car[]; brands: string[] })
             <div className="space-y-2">
               <Label htmlFor="search">Buscar</Label>
               <div className="relative">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Search strokeWidth={1.75} className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   id="search"
                   placeholder="Marca o modelo"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  className="pl-9"
+                  className="pl-10"
                 />
               </div>
             </div>
@@ -205,7 +206,7 @@ export function CatalogView({ cars, brands }: { cars: Car[]; brands: string[] })
             </div>
 
             {hasActiveFilters && (
-              <Button variant="ghost" size="sm" onClick={clearFilters} className="w-full">
+              <Button variant="outline" size="sm" onClick={clearFilters} className="w-full">
                 <X className="h-4 w-4" />
                 Limpiar filtros
               </Button>
@@ -219,8 +220,8 @@ export function CatalogView({ cars, brands }: { cars: Car[]; brands: string[] })
         {/* h2 para que los h3 de las tarjetas no salten de nivel (h1 → h3) */}
         <h2 className="sr-only">Resultados del catálogo</h2>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm text-muted-foreground">
-            {disponibles} {disponibles === 1 ? "vehículo disponible" : "vehículos disponibles"}
+          <p className="tabular text-sm text-muted-foreground" aria-live="polite">
+            <span className="font-medium text-foreground">{disponibles}</span> {disponibles === 1 ? "vehículo disponible" : "vehículos disponibles"}
             {vendidos > 0 && ` · ${vendidos} vendido${vendidos === 1 ? "" : "s"}`}
           </p>
           <div className="flex items-center gap-2">
@@ -242,18 +243,37 @@ export function CatalogView({ cars, brands }: { cars: Car[]; brands: string[] })
         </div>
 
         {filtered.length > 0 ? (
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {filtered.map((car) => (
-              <CarCard key={car.id} car={car} />
+          <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
+            {filtered.map((car, i) => (
+              <div key={car.id} className="reveal-card">
+                <CarCard car={car} priority={i < 3} />
+              </div>
             ))}
           </div>
         ) : (
-          <div className="mt-6 rounded-lg border border-dashed border-border p-12 text-center">
-            <p className="text-sm font-medium text-foreground">No encontramos vehículos con esos filtros</p>
-            <p className="mt-1 text-sm text-muted-foreground">Prueba ajustando o limpiando los filtros.</p>
-            <Button variant="outline" size="sm" onClick={clearFilters} className="mt-4">
-              Limpiar filtros
-            </Button>
+          <div className="mt-8 rounded-2xl bg-card px-6 py-16 text-center">
+            <p className="font-display text-3xl text-foreground">Sin coincidencias</p>
+            <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
+              No encontramos vehículos con esos filtros. Ajusta o limpia los filtros, o escríbenos y te avisamos cuando
+              llegue uno como el que buscas.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <Button variant="outline" onClick={clearFilters}>
+                Limpiar filtros
+              </Button>
+              <Button
+                variant="whatsapp"
+                render={
+                  <a
+                    href={whatsappLink(`Hola AutoBroker MX, busco un auto${query ? ` (${query})` : ""}. ¿Me avisan si llega uno?`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                }
+              >
+                Avísame por WhatsApp
+              </Button>
+            </div>
           </div>
         )}
       </div>

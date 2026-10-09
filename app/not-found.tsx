@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { MessageCircle, SearchX } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { whatsappLink } from "@/lib/utils"
 
@@ -9,9 +8,9 @@ import { whatsappLink } from "@/lib/utils"
  */
 export default function NotFound() {
   return (
-    <section className="mx-auto flex max-w-2xl flex-col items-center px-4 py-24 text-center sm:px-6">
-      <SearchX className="h-12 w-12 text-primary" aria-hidden="true" />
-      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-foreground">
+    <section className="mx-auto flex max-w-2xl flex-col items-center px-4 py-28 text-center sm:px-6 md:py-36">
+      <p className="font-display tabular text-8xl text-[oklch(0.3_0.006_264)]" aria-hidden="true">404</p>
+      <h1 className="font-display mt-4 text-5xl text-foreground">
         Página no encontrada
       </h1>
       {/* mantiene la jerarquía de encabezados: h1 → h2 → h3 (footer) */}
@@ -36,7 +35,6 @@ export default function NotFound() {
             />
           }
         >
-          <MessageCircle className="h-4 w-4" aria-hidden="true" />
           Escríbenos
         </Button>
       </div>
