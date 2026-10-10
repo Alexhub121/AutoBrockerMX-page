@@ -71,12 +71,9 @@ export function Hero() {
             Quiero vender mi auto
             <ButtonArrow />
           </Button>
-          <Link
-            href="/catalogo"
-            className="text-sm font-medium text-foreground underline decoration-border underline-offset-[0.4em] transition-[text-decoration-color] duration-200 hover:decoration-primary"
-          >
+          <Button size="lg" variant="outline" className="bg-background/40 backdrop-blur-sm" render={<Link href="/catalogo" />}>
             Ver autos en venta
-          </Link>
+          </Button>
         </div>
 
         {/* Hechos del servicio, al ras del piso */}

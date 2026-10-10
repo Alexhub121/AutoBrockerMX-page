@@ -52,7 +52,7 @@ export function Logo({ className, size = "md", showEmblem = true }: LogoProps) {
           )}
         />
       )}
-      <span className={cn("font-brand font-extrabold uppercase leading-none tracking-tight", sizeMap[size])}>
+      <span className={cn("font-brand font-extrabold uppercase leading-none tracking-tight whitespace-nowrap pr-1", sizeMap[size])}>
         <span className="text-chrome">Auto</span>
         <span className="text-chrome-red">Broker</span>
         <span className="text-chrome"> MX</span>
