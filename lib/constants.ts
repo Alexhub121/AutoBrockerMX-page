@@ -11,6 +11,15 @@ export const COMPANY = {
   email: "contacto@autobrokermx.com",
   city: "Aguascalientes, México",
   coverage: "Servicio en toda la República Mexicana",
+  /** Horario visible en Contacto. Debe coincidir con OPENING_HOURS. */
+  hours: "Lunes a sábado, 9:00 a 19:00 h",
+} as const;
+
+/** Horario en formato para Google (datos estructurados). */
+export const OPENING_HOURS = {
+  days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  opens: "09:00",
+  closes: "19:00",
 } as const;
 
 /** Número de WhatsApp en formato internacional sin signos ni espacios (52 449 452 9700) */

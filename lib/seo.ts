@@ -1,5 +1,5 @@
 import type { Car } from "@/lib/types"
-import { COMPANY, WHATSAPP_NUMBER, SOCIAL_LINKS } from "@/lib/constants"
+import { COMPANY, OPENING_HOURS, WHATSAPP_NUMBER, SOCIAL_LINKS } from "@/lib/constants"
 
 /**
  * Configuración SEO del sitio.
@@ -43,6 +43,14 @@ export function businessJsonLd() {
       name: "México",
     },
     sameAs: Object.values(SOCIAL_LINKS),
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: OPENING_HOURS.days.map((day) => `https://schema.org/${day}`),
+        opens: OPENING_HOURS.opens,
+        closes: OPENING_HOURS.closes,
+      },
+    ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "ventas y asesoría",

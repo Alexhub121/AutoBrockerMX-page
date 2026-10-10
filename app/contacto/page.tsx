@@ -57,7 +57,7 @@ export default function ContactoPage() {
               <div className="grid grid-cols-2 gap-6 border-b border-border/70 py-6">
                 <div>
                   <dt className="text-xs text-muted-foreground">Horario</dt>
-                  <dd className="tabular mt-2 text-foreground">Lunes a sábado, 9:00 a 19:00 h</dd>
+                  <dd className="tabular mt-2 text-foreground">{COMPANY.hours}</dd>
                 </div>
                 <div>
                   <dt className="text-xs text-muted-foreground">Cobertura</dt>

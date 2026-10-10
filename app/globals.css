@@ -227,21 +227,21 @@
    ----------------------------------------------------------------------------- */
 
 /* Hero: el auto aparece como si encendieran el reflector */
+/* El auto NUNCA arranca con opacity 0: Google solo cuenta como "pintada" la
+   imagen principal (LCP) cuando es visible. El "encendido" es de brillo. */
 @keyframes lights-on {
   0% {
-    opacity: 0;
-    filter: brightness(0.2) blur(6px);
-    transform: scale(1.04);
+    filter: brightness(0.25) blur(3px);
+    transform: scale(1.03);
   }
   100% {
-    opacity: 1;
     filter: brightness(1) blur(0);
     transform: scale(1);
   }
 }
 @keyframes rise {
   from {
-    opacity: 0;
+    opacity: 0.12;
     transform: translateY(14px);
     filter: blur(4px);
   }
@@ -252,7 +252,7 @@
   }
 }
 .animate-lights-on {
-  animation: lights-on 1400ms var(--ease-out) both;
+  animation: lights-on 1100ms var(--ease-out) both;
 }
 .animate-rise {
   animation: rise 700ms var(--ease-out) both;
@@ -296,7 +296,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-lights-on,
+  .animate-lights-on {
+    animation: none;
+  }
   .animate-rise {
     animation: fade-only 300ms ease both;
   }
@@ -331,7 +333,7 @@ html[data-intro="play"] .intro {
   inset: 0;
   z-index: 300;
   pointer-events: none;
-  animation: intro-done 0ms linear 2300ms forwards;
+  animation: intro-done 0ms linear 1550ms forwards;
 }
 .intro-panel {
   position: absolute;
@@ -342,11 +344,11 @@ html[data-intro="play"] .intro {
 }
 .intro-top {
   top: 0;
-  animation: intro-open-up 850ms var(--ease-in-out) 1350ms forwards;
+  animation: intro-open-up 650ms var(--ease-in-out) 880ms forwards;
 }
 .intro-bottom {
   bottom: 0;
-  animation: intro-open-down 850ms var(--ease-in-out) 1350ms forwards;
+  animation: intro-open-down 650ms var(--ease-in-out) 880ms forwards;
 }
 .intro-content {
   position: absolute;
@@ -356,11 +358,11 @@ html[data-intro="play"] .intro {
   align-items: center;
   justify-content: center;
   gap: 1.25rem;
-  animation: intro-content-out 400ms var(--ease-out) 1150ms forwards;
+  animation: intro-content-out 300ms var(--ease-out) 720ms forwards;
 }
 .intro-mark {
   clip-path: inset(0 50% 0 50%);
-  animation: intro-mark-in 700ms var(--ease-out) 450ms forwards;
+  animation: intro-mark-in 500ms var(--ease-out) 260ms forwards;
 }
 .intro-line {
   width: min(70vw, 520px);
@@ -369,7 +371,7 @@ html[data-intro="play"] .intro {
   background: linear-gradient(90deg, transparent, var(--primary) 20%, oklch(0.8 0.15 27) 50%, var(--primary) 80%, transparent);
   box-shadow: 0 0 24px 2px oklch(0.585 0.215 27 / 0.6);
   transform: scaleX(0);
-  animation: intro-line-in 650ms var(--ease-out) 120ms forwards;
+  animation: intro-line-in 450ms var(--ease-out) 60ms forwards;
 }
 @keyframes intro-line-in {
   to { transform: scaleX(1); }
@@ -391,7 +393,7 @@ html[data-intro="play"] .intro {
 }
 /* Mientras corre el intro, la entrada del hero espera a que se abra la cortina */
 html[data-intro="play"] .hero :is(.animate-rise, .animate-lights-on) {
-  animation-delay: calc(var(--delay, 0ms) + 1500ms);
+  animation-delay: calc(var(--delay, 0ms) + 950ms);
 }
 
 /* =============================================================================

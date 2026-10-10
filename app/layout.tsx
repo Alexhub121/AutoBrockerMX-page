@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     "autos usados México",
     "AutoBroker MX",
   ],
-  generator: "v0.app",
   applicationName: COMPANY.name,
   authors: [{ name: COMPANY.name }],
   alternates: {
